@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 #from django.views.decorators.csrf import csrf_exempt
 
-#from . import models
-#from . import forms
+from . import models
+from . import forms
 # Create your views here.
 
 def index(request):
@@ -13,7 +13,7 @@ def index(request):
     #n=range(1,10*page+10) #show 9 pages
 
     #n = models.Post.objects.all()
-    #e = models.Event.objects.all()
+    e = models.Event_user.objects.all()
 
     cins = "CINS465"
     context = {
@@ -21,11 +21,11 @@ def index(request):
         "welcome":"Hello World",
         #"reasons_list": n[0:9],
         #"index_list": n[0:9],
-        #"event_list":e[0:9],
+        "eventu_list":e[0:9],
         "course": cins,  
         "opening":"Hi, welcome to fall semester CINS465",
         # "form": form_instance,
-        # "eventform": event_instance,
+        #"eventuform": eventu_instance,
     }
     #if page is home return home.html
     return render(request, "index.html", context=context)

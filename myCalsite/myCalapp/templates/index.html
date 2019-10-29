@@ -4,6 +4,13 @@
 {% load static %} 
 
 {% block content %}
+<ul>
+    {% for events in eventu_list %}
+        <li> {{events}}</li>
+    {% endfor %}
+</ul>
+
+
     {{ welcome }}
 {% endblock %}
 
