@@ -4,16 +4,25 @@
 {% load static %} 
 
 {% block content %}
+
+{{ welcome }}
+
 <ul>
     {% for events in eventu_list %}
         <li> {{events}}</li>
     {% endfor %}
 </ul>
 
+<form action = "/" method = "post">
+    {% csrf_token %}
+    {{form_eventu}}
+    <input type="submit" class="button" value="Submit Event">
+</form>
 
-    {{ welcome }}
+    
 {% endblock %}
-
+<!--
 {% block scripts %}
 {% endblock %}
+-->
 

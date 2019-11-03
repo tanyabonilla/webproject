@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     #path('<int:page>/', views.index),
     #path('month/<int:page>/', views.index), <--will be doing something like this
-    path('Home/', views.index),
+    path('', views.index),
     #path('events/', views.events_view),
 ]
