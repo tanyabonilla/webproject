@@ -1,8 +1,11 @@
 from django.db import models
+from datetime import datetime
 from django.contrib.auth.models import User
 #from django.db.models.functions import Cast
 from django.db.models import CharField
-from django.db.models.fields import DateTimeField
+from django.db.models.fields import TimeField
+from django.db.models.fields import DurationField
+from django.db.models.fields import DateField
 # Create your models here.
 
 class User_Friends(models.Model):
@@ -16,14 +19,25 @@ class User_Group(models.Model):
 class Event_user(models.Model):
     user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
     eventu_name = models.CharField(max_length = 50)
-    eventu_starttime = models.DateTimeField(auto_now_add = False, null = False)
-    eventu_endtime = models.DateTimeField(auto_now_add = False, null = False)
+    eventu_startday = models.DateField(auto_now_add = False, null = False, default=datetime.now)
+    eventu_starttime = models.TimeField( auto_now_add = False, null = False, default = '1')
+    eventu_endday = models.DateField(auto_now_add = False, null = False, default=datetime.now)
+    eventu_endtime = models.TimeField(auto_now_add = False, null = False, default = '1')
+    #eventu_duration = models.DurationField (null = False)
+    #eventu_starttime = models.DateTimeField(auto_now_add = False, null = False)
+    #eventu_endtime = models.DateTimeField(auto_now_add = False, null = False)
     eventu_location = models.CharField(max_length = 50, null = True)
     eventu_note = models.CharField(max_length=100, null = True)
     eventu_tag = models.CharField(max_length=25, null = True)
 
     def __str__(self):
-        statement = self.eventu_name + " ~~ Time:" + str(self.eventu_starttime)+ " - " + str(self.eventu_endtime)
+        statement = self.eventu_name
+        if (self.eventu_startday == self.eventu_endday):
+            statement += "~~ Day: " + str(self.eventu_startday) + " ~~ Time:" + str(self.eventu_starttime.hour) + ":"  
+            statement += str(self.eventu_starttime.minute) + " - " + str(self.eventu_endtime.hour) + ":" + str(self.eventu_endtime.minute)
+        else: 
+            statement += "~~ Start Day and Time: " + str(self.eventu_startday) + " " + str(self.eventu_starttime.hour) + ":"  + str(self.eventu_starttime.minute)
+            statement += "~~ End Day and Time: " + str(self.eventu_endday) + " " + str(self.eventu_endtime.hour) + ":" + str(self.eventu_endtime.minute)
         if (self.eventu_location):
             statement += " ~~ Location: " + self.eventu_location
         if (self.eventu_note):
