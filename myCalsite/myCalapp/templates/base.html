@@ -1,40 +1,38 @@
-
- {% load static %}
+{% load static %}
 
 <!DOCTYPE htlml>
 <html class="no-js" lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="{% static "css/foundation.css" %}">
-    <link rel="stylesheet" href="{% static "css/app.css" %}">
-   <!--page specific css--> 
-    <!-- {% block css %} -->
-    <!--{% endblock %}-->
-  </head>
-  <body>
 
-    <!-- body of code we put into the website -->
-    
-    <!-- Navigation -->
-     
-    {% block content %}
-    {% endblock %} 
-    
-   
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static "css/foundation.css" %}">
+  <link rel="stylesheet" href="{% static "css/app.css" %}">
+  <!--page specific css-->
+  <!-- {% block css %} -->
+  <!--{% endblock %}-->
+</head>
+
+<body>
+
+  <!-- body of code we put into the website -->
+
+  <!-- Navigation -->
+
+  {% block content %}
+  {% endblock %}
 
 
-	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="{% static "js/vendor/jquery.js" %}"></script>
   <script src="{% static "js/vendor/what-input.js" %}"></script>
   <script src="{% static "js/vendor/foundation.js" %}"></script>
   <script src="{% static "js/app.js" %}"></script>
   <!--inherits code-->
-  <!--
-      {% block scripts %}
-  {% endblock %} -->
+  {% block scripts %}
+  {% endblock %}
 </body>
-</html>
 
+</html>
