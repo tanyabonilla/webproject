@@ -52,4 +52,4 @@ def index(request):
     }
     #if page is home return home.html
     return render(request, "index.html", context=context)
-    #return HttpResponse("CINS465 Hello World")
+
