@@ -97,7 +97,7 @@ class Task_group(models.Model):
     taskg_tag = models.CharField(max_length=25, null = True)
     def __str__(self):
         statement = self.taskg_name
-        statement += "~~ Due Day and Time: " + str(self.taskg_duedate.month) + " / " + str(self.taskg_duedate.day) + " "+ str(self.taskg_duedate.hour) + ":"  + str(self.taskg_duedate.minute)
+        statement += " ~~ Due Day and Time: " + str(self.taskg_duedate.month) + " / " + str(self.taskg_duedate.day) + " "+ str(self.taskg_duedate.hour) + ":"  + str(self.taskg_duedate.minute)
         if (self.taskg_note != 'NA'):
             statement += " ~~ Notes: " + self.taskg_note
         if (self. taskg_tag != 'NA'):
