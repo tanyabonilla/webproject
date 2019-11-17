@@ -5,7 +5,5 @@ var app = new Vue({
     }
 })
 
-
-
-{/* <vue-cal style="height: 250px"></vue-cal>
-<vue-cal :time="false" hide-weekends></vue-cal> */}
+/* <vue-cal style="height: 250px"></vue-cal>
+<vue-cal :time="false" hide-weekends></vue-cal> */

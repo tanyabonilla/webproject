@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
-
+from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
@@ -33,7 +33,7 @@ def index(request):
     cins = "CINS465"
     context = {
         "title":"Home",
-        "welcome":"Hello World",
+        #"welcome":"Hello World",
         #"reasons_list": n[0:9],
         #"index_list": n[0:9],
         "eventu_list":e[0:9],

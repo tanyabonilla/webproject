@@ -35,8 +35,9 @@
   {% block content %}
   
   {% endblock %}
-
   
+  <!--inherits code-->
+  {% block scripts %}
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/vue-cal"></script>
@@ -45,8 +46,6 @@
   <script src="{% static "js/vendor/what-input.js" %}"></script>
   <script src="{% static "js/vendor/foundation.js" %}"></script>
   <script src="{% static "js/app.js" %}"></script>
-  <!--inherits code-->
-  {% block scripts %}
   {% endblock %}
 </body>
 
