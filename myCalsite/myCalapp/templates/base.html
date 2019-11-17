@@ -20,12 +20,27 @@
   <!-- body of code we put into the website -->
 
   <!-- Navigation -->
-
+  <div class="top-bar-right">
+    <ul class="menu">
+      {% if user.is_authenticated %}
+      <!-- <li><a href="/accounts/">{{ user.username }}</a></li> -->
+      <!-- <li><a href="/suggestion/">Add Suggestion</a></li> -->
+      <li><a href="/logout/">Logout</a></li>
+      {% else %}
+       <!-- <li><a href="/register/">Register</a></li> -->
+      <li><a href="/login/">Log In</a></li>
+      {% endif %}
+    </ul>
+  </div>
   {% block content %}
+  
   {% endblock %}
 
-
+  
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-cal"></script>
+  <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
   <script src="{% static "js/vendor/jquery.js" %}"></script>
   <script src="{% static "js/vendor/what-input.js" %}"></script>
   <script src="{% static "js/vendor/foundation.js" %}"></script>

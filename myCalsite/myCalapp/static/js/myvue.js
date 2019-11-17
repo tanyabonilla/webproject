@@ -4,3 +4,8 @@ var app = new Vue({
         message: 'Hello Vue!'
     }
 })
+
+
+
+{/* <vue-cal style="height: 250px"></vue-cal>
+<vue-cal :time="false" hide-weekends></vue-cal> */}
