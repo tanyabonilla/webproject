@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
-
+from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
@@ -58,7 +58,7 @@ def register(request):
         form_instance = forms.RegistrationForm(request.POST)
         if form_instance.is_valid():
             form_instance.save()
-            return HttpResponseRedirect("/Calendar/")
+            return HttpResponseRedirect("/login/")
     else:
         form_instance = forms.RegistrationForm()
     context = {

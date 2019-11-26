@@ -8,9 +8,16 @@ services:
        - .:/code
     ports:
        - 8000:8000
+    links:
+       - "redis"
     user: 1000:1000
     command: python /code/myCalsite/manage.py runserver 0.0.0.0:8000
-
+    
+  redis:
+    image: redis
+    expose:
+       - 6379
+            
 # nginx:
 #  restart: always
 #  build: ./nginx/

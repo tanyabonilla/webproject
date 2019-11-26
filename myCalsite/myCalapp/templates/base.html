@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
+  <title>{% block title %}Hello{% endblock %}</title>
   <link rel="stylesheet" href="{% static "css/foundation.css" %}">
   <link rel="stylesheet" href="{% static "css/app.css" %}">
   <!--page specific css-->
@@ -20,27 +20,23 @@
   <!-- body of code we put into the website -->
 
   <!-- Navigation -->
-  <div class="top-bar-right">
-    <ul class="menu">
-      {% if user.is_authenticated %}
-      <!-- <li><a href="/accounts/">{{ user.username }}</a></li> -->
-      <!-- <li><a href="/suggestion/">Add Suggestion</a></li> -->
-      <li><a href="/logout/">Logout</a></li>
-      {% else %}
-       <!-- <li><a href="/register/">Register</a></li> -->
-      <li><a href="/login/">Log In</a></li>
-      {% endif %}
-    </ul>
-  </div>
-  {% block content %}
   
+  {% block login %}
   {% endblock %}
 
+  {% block content %}
+  {% endblock %}
+
+  {% block chat%}
+  {% endblock %}
+
+  {% block submissions %}
+  {% endblock %}
+
+  {% block submit %}
+  {% endblock %}
   
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue"></script>
-  <script src="https://unpkg.com/vue-cal"></script>
-  <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+  
   <script src="{% static "js/vendor/jquery.js" %}"></script>
   <script src="{% static "js/vendor/what-input.js" %}"></script>
   <script src="{% static "js/vendor/foundation.js" %}"></script>
