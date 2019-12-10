@@ -3,11 +3,12 @@ from . import models
 from django.core.validators import validate_slug
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 #class PostForm(forms.Form):
 #    post = forms.CharField(label = 'Post', max_length = 240, validators = [validate_slug])
 
-YEARSS= [x for x in range(2019,2020)]
+YEARSS= [x for x in range(2019,2022)]
 #YEARSE= [x for x in range(2019,2020)]
 TIME_INPUT_FORMATS = ['%I:%M %p',]
 
@@ -52,18 +53,62 @@ class Taskuser_Form(forms.Form):
             tasku_tag = form_instance_eu.cleaned_data['ftasku_tag'],
             )
         if commit:
-            new_eventu.save() #goes into the database
-        return new_eventu
+            new_tasku.save() #goes into the database
+        return new_tasku
 
+class Add_FriendForm(forms.Form):
+    add_friend = forms.CharField(label = 'Name of the account you want to Befriend',  required = True, strip = True)
+
+    def save_friend(self, request, commit=True):
+        print("Form save_friend()")
+        clean_friend = self.cleaned_data['add_friend']
+
+        if(models.Friendship.objects.filter(user=request.user).exists()==False):
+            create = models.Friendship(user=request.user)
+            create.save()
+        #checks if the friend you are trying to friend is a user
+        if User.objects.filter(username=clean_friend).exists():
+            user2 = User.objects.get(username=clean_friend)
+            new_friend = models.FriendshipManager()
+            #check if you are friends
+            if(models.Friendship.objects.filter(user=user2).exists()==False):
+                create2 = models.Friendship(user=user2)
+                create2.save()
+            if new_friend.befriend(request.user.id, user2):
+                return new_friendship
+        else:
+            raise forms.ValidationError(u'Username "%s" does not exist.' % clean_friend)
+       
+class Remove_FriendForm(forms.Form):
+    remove_friend = forms.CharField(label = 'Name of the account you want to Unfriend',  required = True, strip = True)
+
+    def save_rfriend(self, request, commit=True):
+        print("Form save_friend()")
+        clean_friend = self.cleaned_data['remove_friend']
+
+        if(models.Friendship.objects.filter(user=request.user).exists()==False):
+            create = models.Friendship(user=request.user)
+            create.save()
+        #checks if the friend you are trying to unfriend is a user
+        if User.objects.filter(username=clean_friend).exists():
+            user2 = User.objects.get(username=clean_friend)
+            new_friend = models.FriendshipManager()
+            #check if you are friends
+            if(models.Friendship.objects.filter(user=user2).exists()==False):
+               raise forms.ValidationError(u'You are not friends with "%s" already.' % clean_friend)
+            if new_friend.unfriend(request.user.id, user2):
+                return new_friendship
+        else:
+            raise forms.ValidationError(u'Username "%s" does not exist.' % clean_friend)
+       
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
         label="Email",
-        required=True
-        )
-        
+        required=True)
+
     class Meta:
         model = User
-        fields = ("username", "email", "first_name", "last_name",
+        fields = ("username", "email",
                   "password1", "password2")
 
     def save(self, commit=True):
@@ -72,3 +117,8 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+    # def save_profile(self, user,commit = True):
+    #     profile = models.User_Profile(user=user.pk)
+    #     profile.save()
+

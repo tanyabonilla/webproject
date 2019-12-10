@@ -2,8 +2,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
 {% block login %}
 <div class="top-bar">
     <div class="top-bar-right">
@@ -17,16 +15,25 @@
     </div>
     <div class="top-bar-left">
         <ul class="menu">
-            <li><a href="/groups/" class="button">Groups</a></li>
+            <br> Login as {{current_user}} </br>
+            <li><a href="/myfriends/" class="button">Friends</a></li>
+            <li><a href="/chat/" class="button">Chat</a></li>
         </ul>
     </div>
 </div>
 
 {% endblock %}
 
+
 {% block content %}
 
-{{ welcome }}
+{{ welcome }} {{current_user}}
+<ul>
+    Your Friends:
+    {% for friends in friend_list %}
+    <li> {{friends}}</li>
+    {% endfor %}
+</ul>
 
 <ul>
     {% for events in eventu_list %}
@@ -34,11 +41,20 @@
     {% endfor %}
 </ul>
 
+
 {% if user.is_authenticated %}
+
+<!-- <form action="/" method="post">
+    {% csrf_token %}
+    {{task_form}}
+    <input type="submit" class="button" value="Submit Task" name=submit_task>
+</form> -->
+
+
 <form action="/" method="post">
     {% csrf_token %}
     {{form_eventu}}
-    <input type="submit" class="button" value="Submit Event">
+    <input type="submit" class="button" value="Submit Event" name=submit_eventu>
 </form>
 {% endif %}
 
@@ -46,58 +62,16 @@
     {{message}}
 </div>
 
-
-<!-- One way
-    <div id="cal">
-    <v-app id="inspire">
-        <v-sheet height="500">
-            <v-calendar
-            type="month"
-            now="2019-01-08"
-            value="2019-01-08"
-            :events="events"
-            ></v-calendar>
-        </v-sheet>
-    </v-app>
-</div> -->
-
-<!-- Another way 
-    <vue-cal :time="false" hide-weekends></vue-cal>
-<vue-cal style="height: 250px"></vue-cal>
-<vue-cal :time="false" show-week-numbers :hide-weekdays="[2, 3, 5]">
-<vue-cal :time-from="8 * 60" :time-to="19 * 60" :time-step="30"></vue-cal>
-</vue-cal> -->
-{% endblock %}
-
-
-{% block chat %}
-What chat room would you like to enter?<br/>
-<input id="room-name-input" type="text" size="100"/><br/>
-<input id="room-name-submit" type="button" value="Enter"/>
-
-<script>
-    document.querySelector('#room-name-input').focus();
-    document.querySelector('#room-name-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#room-name-submit').click();
-        }
-    };
-
-    document.querySelector('#room-name-submit').onclick = function(e) {
-        var roomName = document.querySelector('#room-name-input').value;
-        window.location.pathname = '/chat/' + roomName + '/';
-    };
-</script>
 {% endblock %}
 
 
 {% block scripts %}
-
 <script src="{% static "js/myvue.js" %}"></script>
 <!-- development version, includes helpful console warnings --->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vue-cal"></script>
 <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+
 
 {% endblock %}

@@ -14,9 +14,17 @@ services:
     command: python /code/myCalsite/manage.py runserver 0.0.0.0:8000
     
   redis:
+    container_name: redis
     image: redis
-    expose:
-       - 6379
+    ports:
+      - "6379:6379"
+    volumes:
+      - ../data/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+   
+   #  expose:
+   #     - 6379
             
 # nginx:
 #  restart: always

@@ -71,7 +71,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myCalsite.wsgi.application'
 ASGI_APPLICATION = "myCalsite.routing.application"
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -122,3 +129,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
