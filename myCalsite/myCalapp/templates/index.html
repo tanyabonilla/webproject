@@ -1,32 +1,61 @@
-<!doctype html>
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
+<!DOCTYPE htlml>
+<html class="no-js" lang="en" dir="ltr">
 
-{{ welcome }}
+<head>
+    {% block css %}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static "css/app.css" %}">
+    <link rel="stylesheet" href="{% static "css/foundation.css" %}">
+    {% endblock %}
+</head>
 
-<ul>
-    {% for events in eventu_list %}
-    <li> {{events}}</li>
-    {% endfor %}
-</ul>
+<body>
+    {% block content %}
+    {% endblock %}
 
-{% if user.is_authenticated %}
-<form action="/" method="post">
-    {% csrf_token %}
-    {{form_eventu}}
-    <input type="submit" class="button" value="Submit Event">
-</form>
-{% endif %}
+    {% block navigation %}
+    <div class="top-bar">
+        <div class="top-bar-left">
+          <ul class="menu">
+            <li class="menu-text"><a href="/calendar">MTCAL</a></li>
+            <li class="menu-text"><a href="/events">Events</a></li>
+            <li class="menu-text"><a href="/daily">Daily</a></li>
+            <li class="menu-text"><a href="/month">Monthly</a></li>
+            <li class="menu-text"><a href="/profile">Profile</a></li>
+            <li class="menu-text"><a href="/join_group">Join a Group</a></li>
+          </ul>
+        </div>
+          <div class="top-bar-right">
+            <ul class = "menu">
+              {% if user.is_authenticated %}
+              <li class = "menu-text"><a href="/logout/">Logout</a></li>
+              {% else %}
+              <li class = "menu-text"><a href="/register/">Register</a></li>
+              <li class = "menu-text"><a href="/login/">Log In</a></li>
+              {% endif %}
+          </ul>
+          </div>
+      </div>
+    {% endblock %}
 
-{% endblock %}
+    {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-cal"></script>
+    <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+    <script src="{% static "js/vendor/jquery.js" %}"></script>
+    <script src="{% static "js/vendor/what-input.js" %}"></script>
+    <script src="{% static "js/vendor/foundation.js" %}"></script>
+    <script src="{%static "js/vendor/foundation.topbar.js" %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    {% endblock %}
+</body>
 
-
-{% block scripts %}
-
-<!-- development version, includes helpful console warnings --->
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="{% static "js/myvue.js" %}"></script> -->
-
-{% endblock %}
+</html>

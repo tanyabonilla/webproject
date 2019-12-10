@@ -3,50 +3,22 @@
 <!DOCTYPE htlml>
 <html class="no-js" lang="en" dir="ltr">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
-  <link rel="stylesheet" href="{% static "css/foundation.css" %}">
-  <link rel="stylesheet" href="{% static "css/app.css" %}">
-  <!--page specific css-->
-  <!-- {% block css %} -->
-  <!--{% endblock %}-->
-</head>
-
+  <head>
+      {% block css %}
+      {% endblock %}
+    </head>
 <body>
-
   <!-- body of code we put into the website -->
 
-  <!-- Navigation -->
-  <div class="top-bar-right">
-    <ul class="menu">
-      {% if user.is_authenticated %}
-      <!-- <li><a href="/accounts/">{{ user.username }}</a></li> -->
-      <!-- <li><a href="/suggestion/">Add Suggestion</a></li> -->
-      <li><a href="/logout/">Logout</a></li>
-      {% else %}
-       <!-- <li><a href="/register/">Register</a></li> -->
-      <li><a href="/login/">Log In</a></li>
-      {% endif %}
-    </ul>
-  </div>
-  {% block content %}
-  
+  {% block navigation %}
   {% endblock %}
-  
+
+  {% block content %}
+  {% endblock %}
+
   <!--inherits code-->
   {% block scripts %}
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vue"></script>
-  <script src="https://unpkg.com/vue-cal"></script>
-  <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
-  <script src="{% static "js/vendor/jquery.js" %}"></script>
-  <script src="{% static "js/vendor/what-input.js" %}"></script>
-  <script src="{% static "js/vendor/foundation.js" %}"></script>
-  <script src="{% static "js/app.js" %}"></script>
   {% endblock %}
-</body>
 
+</body>
 </html>

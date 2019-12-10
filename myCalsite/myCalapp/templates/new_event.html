@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block title %} Add New Event {% endblock %}
+
+{% block content %}
+<div class="grid-x grid-padding-x">
+    <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
+<ul>
+    {% for events in eventu_list %}
+    <li> {{events}} </li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+<form action="/" method="post">
+    {% csrf_token %}
+    {{form_eventu}}
+    <input type="submit" class="button" value="Submit Event">
+</form>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

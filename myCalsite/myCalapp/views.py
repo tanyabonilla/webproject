@@ -20,9 +20,9 @@ def index(request):
         if form_instance_eu.is_valid():
             form_instance_eu.save_eventu(request=request)
             form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
-            return HttpResponseRedirect("/Calendar/") #redirect to new page
+            return HttpResponseRedirect("/calendar/") #redirect to new page
         else:
-            return HttpResponseRedirect("/Calendar/") #redirect somewhere else
+            return HttpResponseRedirect("/calendar/") #redirect somewhere else
     else:
         form_instance_eu = forms.Eventuser_Form()
         
@@ -33,25 +33,14 @@ def index(request):
     cins = "CINS465"
     context = {
         "title":"Home",
-        #"welcome":"Hello World",
         #"reasons_list": n[0:9],
         #"index_list": n[0:9],
         "eventu_list":e[0:9],
-        "course": cins,  
-        "opening":"Hi, welcome to fall semester CINS465",
         "form_eventu": form_instance_eu,
         #"eventuform": eventu_instance,
     }
     #if page is home return home.html
-    return render(request, "index.html", context=context)
-
-def show_Calendar(request, page=0):
-    myDate = datetime.now()
-
-    context = {
-        'date': formatedDate
-    }
-    return render(request, "index.html", context=context)
+    return render(request, "new_event.html", context=context)
 
 def register(request):
     if request.method == "POST":
@@ -69,3 +58,13 @@ def register(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect("/login/")
+
+def monthly_view(request):
+    if request.method == "POST":
+            return HttpResponseRedirect("/calendar/month")
+    else:
+        form_instance = forms.RegistrationForm()
+    context = {
+        "form":form_instance,
+    }
+    return render(request, "registration/month.html", context=context)
