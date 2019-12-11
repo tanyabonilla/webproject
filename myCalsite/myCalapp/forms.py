@@ -15,9 +15,9 @@ TIME_INPUT_FORMATS = ['%I:%M %p',]
 class Eventuser_Form(forms.Form):
     feventu_name = forms.CharField(label = 'Event Name', max_length = 50, required = True, strip = True)
     feventu_startday = forms.DateField(label = 'Start Day', required=True, widget = forms.SelectDateWidget(years = YEARSS))
-    feventu_starttime = forms.TimeField(label = 'Start Time (hh:mm AM/PM)', required=True, input_formats = TIME_INPUT_FORMATS)
+    feventu_starttime = forms.TimeField(label = 'Start Time (HH:MM AM/PM)', required=True, input_formats = TIME_INPUT_FORMATS)
     feventu_endday = forms.DateField(label = 'End Day', required=True, widget = forms.SelectDateWidget(years = YEARSS))
-    feventu_endtime = forms.TimeField(label = 'End Time (hh:mm AM/PM)',required=True, input_formats = TIME_INPUT_FORMATS)
+    feventu_endtime = forms.TimeField(label = 'End Time (HH:MM AM/PM)',required=True, input_formats = TIME_INPUT_FORMATS)
     feventu_location = forms.CharField(label = 'Location', max_length = 50, required = False, strip = True, empty_value = 'NA')
     feventu_note = forms.CharField(label = 'Notes', max_length = 100, required = False, strip = True, empty_value = 'NA')
     feventu_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA')

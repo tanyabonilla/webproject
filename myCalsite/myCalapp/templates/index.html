@@ -1,32 +1,7 @@
-<!doctype html>
 {% extends "base.html" %}
 {% load static %}
 
-{% block login %}
-<div class="top-bar">
-    <div class="top-bar-right">
-        <ul class="menu">
-            {% if user.is_authenticated %}
-            <li><a href="/logout/">Logout</a></li>
-            {% else %}
-            <li><a href="/login/">Log In</a></li>
-            {% endif %}
-        </ul>
-    </div>
-    <div class="top-bar-left">
-        <ul class="menu">
-            <br> Login as {{current_user}} </br>
-            <li><a href="/myfriends/" class="button">Friends</a></li>
-            <li><a href="/chat/" class="button">Chat</a></li>
-        </ul>
-    </div>
-</div>
-
-{% endblock %}
-
-
 {% block content %}
-
 {{ welcome }} {{current_user}}
 <ul>
     Your Friends:
@@ -66,12 +41,46 @@
 
 
 {% block scripts %}
-<script src="{% static "js/myvue.js" %}"></script>
+
 <!-- development version, includes helpful console warnings --->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/vue-cal"></script>
 <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
-
-
 {% endblock %}
+
+  {% block navigation %}
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <ul class="menu">
+        <li class="menu-text"><a href="/calendar">MTCAL</a></li>
+        <li class="menu-text"><a href="/events">Events</a></li>
+        <li class="menu-text"><a href="/tasks">Tasks</a></li>
+        <li class="menu-text"><a href="/daily">Daily</a></li>
+        <li class="menu-text"><a href="/month">Monthly</a></li>
+        <li class="menu-text"><a href="/weekly">Weekly</a></li>
+        <li class="menu-text"><a href="/profile">Profile</a></li>
+        <li class="menu-text"><a href="/myfriends/" class="button">Friends</a></li>
+        <li class="menu-text"><a href="/chat/" class="button">Chat</a></li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        {% if user.is_authenticated %}
+        <li class="menu-text"> Hi, {{ user.get_username }}</li>
+        <li class="menu-text"><a href="/logout/">Logout</a></li>
+
+        {% else %}
+        <li class="menu-text"><a href="/register/">Register</a></li>
+        <li class="menu-text"><a href="/login/">Log In</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block scripts %}
+  {% endblock %}
+</body>
+
+</html>

@@ -31,9 +31,9 @@ def index(request):
                 if form_instance_eu.is_valid():
                     form_instance_eu.save_eventu(request=request)
                     form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
-                    return redirect("") 
+                    return redirect("/") 
                 else:
-                    return redirect("") #redirect somewhere else
+                    return redirect("/") #redirect somewhere else
         else:
             form_instance_eu = forms.Eventuser_Form()
     else:
@@ -68,7 +68,7 @@ def show_Calendar(request, page=0):
         'date': formatedDate
     }
     return render(request, "index.html", context=context)
-
+  
 def register(request):
     if request.method == "POST":
         form_instance = forms.RegistrationForm(request.POST)
@@ -84,8 +84,7 @@ def register(request):
     return render(request, "registration/register.html", context=context)
 
 def logout_view(request):
-    logout(request)
-    return redirect("/login/")
+    logout(request)return redirect("/login/")
 
 def add_remove_friend(request):
     if request.method == "POST":

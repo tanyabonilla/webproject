@@ -1,11 +1,3 @@
-
-var app = new Vue({
-    el: '#app',
-    data: {
-        message: 'Hello Vue!'
-    }
-})
-
 new Vue({
     el: '#cal',
     vuetify: new Vuetify(),
@@ -23,19 +15,21 @@ new Vue({
     ],
 }),
 })
-/*
-export default {
-    components: { 'vue-cal': vuecal },
-    el: '#cal',
-    data: () => ({
-    events: [
-      {
-        start: '2018-11-19 10:35',
-        end: '2018-11-19 11:30',
-        title: 'Doctor appointment'
-      },
-}
-*/
 
-
+new Vue({
+  el: '#app',
+  data: () => ({
+    type: 'month',
+    start: '2019-01-01',
+    end: '2019-01-06',
+    typeOptions: [
+      { text: 'Day', value: 'day' },
+      { text: '4 Day', value: '4day' },
+      { text: 'Week', value: 'week' },
+      { text: 'Month', value: 'month' },
+      { text: 'Custom Daily', value: 'custom-daily' },
+      { text: 'Custom Weekly', value: 'custom-weekly' }
+    ]
+  })
+})
 

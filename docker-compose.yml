@@ -6,11 +6,11 @@ services:
     build: .
     volumes:
        - .:/code
-    ports:
-       - 8000:8000
+    expose:
+       - 8000
     links:
        - "redis"
-    user: 1000:1000
+   #user: 1001:1002
     command: python /code/myCalsite/manage.py runserver 0.0.0.0:8000
     
   redis:
@@ -22,15 +22,16 @@ services:
       - ../data/redis:/data
     entrypoint: redis-server --appendonly yes
     restart: always
-   
-   #  expose:
-   #     - 6379
-            
-# nginx:
-#  restart: always
-#  build: ./nginx/
-#  depends_on:
-#    - web
-#  ports:
-#    - "80:80"
-#    - "443:443"
+    
+   nginx:
+     restart: always
+     build: ./nginx/
+     depends_on:
+        - web
+     ports:
+       - "80:80"
+        #    - "443:443"
+        # volumes:
+        #    - ./myCalsite/myCalapp/static:/static
+     links:
+        - web:web

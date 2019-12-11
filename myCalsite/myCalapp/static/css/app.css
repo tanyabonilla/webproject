@@ -1,17 +1,18 @@
-/* * {font: 12px sans-serif;margin: 0;padding: 0;}
-
-html, body, #cal {height: 100%;}
-#cal {padding: 40px;box-sizing: border-box;}
-
-.vuecal {
-  margin: auto;
-  max-width: 1300px;
-  max-height: 662px;
-  height: 100%;
+.top-bar, .top-bar ul {
+    background-color: #333333;
 }
 
-.vuecal__event {
-  background-color: rgba(173, 216, 230, 0.5);
+.top-bar-left a {
+    color: #D25757;
 }
 
-a {position: fixed;top: 5px;right: 5px;color: #333;} */
+.top-bar-right a {
+    color: #D25757;
+}
+.menu-text {
+    padding: 0.7rem 1rem;
+}
+
+.text-center {
+    padding: 20px;
+}
