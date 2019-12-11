@@ -25,7 +25,7 @@ SECRET_KEY = 'n9$jut4_#=pmk+ur^mk)%!2a#$ewcg_2(x+d_q@o(*gjts0m1j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.209.234.200']
 
 
 # Application definition
@@ -79,6 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'TEST': {
+             'NAME': os.path.join(BASE_DIR, 'db_test.sqlite3')
+        }
     }
 }
 
