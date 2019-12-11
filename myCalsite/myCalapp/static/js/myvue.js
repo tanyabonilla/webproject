@@ -28,7 +28,7 @@ var app4 = new Vue({
   methods: {
   fetchPostList: function() {
       axios
-      .get('calendar/')
+      .get('new_event/')
       .then(response => (this.posts = response.data.posts))
       console.log(this.posts)
       this.seen=false
@@ -40,5 +40,22 @@ var app4 = new Vue({
   clearInterval(this.timer)
   }
 
+})
+
+new Vue({
+  el: '#app',
+  data: () => ({
+    type: 'month',
+    start: '2019-01-01',
+    end: '2019-01-06',
+    typeOptions: [
+      { text: 'Day', value: 'day' },
+      { text: '4 Day', value: '4day' },
+      { text: 'Week', value: 'week' },
+      { text: 'Month', value: 'month' },
+      { text: 'Custom Daily', value: 'custom-daily' },
+      { text: 'Custom Weekly', value: 'custom-weekly' }
+    ]
+  })
 })
 
