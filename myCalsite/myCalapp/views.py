@@ -61,10 +61,10 @@ def logout_view(request):
 
 def monthly_view(request):
     if request.method == "POST":
-            return HttpResponseRedirect("/calendar/month")
+            return HttpResponseRedirect("/month")
     else:
         form_instance = forms.RegistrationForm()
     context = {
         "form":form_instance,
     }
-    return render(request, "registration/month.html", context=context)
+    return render(request, "month.html", context=context)

@@ -7,8 +7,8 @@ urlpatterns = [
     path('register/', views.register), #register
     path('login/', auth_views.LoginView.as_view()), #login
     path('logout/', views.logout_view), #logout
-    path('calendar/', views.index), #calendar
-    path('calendar/month/', views.index) #monthly
+    path('new_event/', views.index), #new_event
+    path('month/', views.index) #monthly 
     #path('<int:page>/', views.index),
     #path('month/<int:page>/', views.index), <--will be doing something like this
     
