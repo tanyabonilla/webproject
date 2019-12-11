@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
+  <title>{% block title %}Hello{% endblock %}</title>
   <link rel="stylesheet" href="{% static "css/foundation.css" %}">
   <link rel="stylesheet" href="{% static "css/app.css" %}">
   <!--page specific css-->
@@ -20,12 +20,23 @@
   <!-- body of code we put into the website -->
 
   <!-- Navigation -->
+  
+  {% block login %}
+  {% endblock %}
+
+  {% block chats%}
+  {% endblock %}
 
   {% block content %}
   {% endblock %}
 
+  {% block submissions %}
+  {% endblock %}
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  {% block submit %}
+  {% endblock %}
+  
+  
   <script src="{% static "js/vendor/jquery.js" %}"></script>
   <script src="{% static "js/vendor/what-input.js" %}"></script>
   <script src="{% static "js/vendor/foundation.js" %}"></script>

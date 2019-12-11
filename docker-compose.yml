@@ -8,9 +8,24 @@ services:
        - .:/code
     ports:
        - 8000:8000
+    links:
+       - "redis"
     user: 1000:1000
     command: python /code/myCalsite/manage.py runserver 0.0.0.0:8000
-
+    
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ../data/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+   
+   #  expose:
+   #     - 6379
+            
 # nginx:
 #  restart: always
 #  build: ./nginx/

@@ -2,9 +2,38 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block login %}
+<div class="top-bar">
+    <div class="top-bar-right">
+        <ul class="menu">
+            {% if user.is_authenticated %}
+            <li><a href="/logout/">Logout</a></li>
+            {% else %}
+            <li><a href="/login/">Log In</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="top-bar-left">
+        <ul class="menu">
+            <br> Login as {{current_user}} </br>
+            <li><a href="/myfriends/" class="button">Friends</a></li>
+            <li><a href="/chat/" class="button">Chat</a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+
 {% block content %}
 
-{{ welcome }}
+{{ welcome }} {{current_user}}
+<ul>
+    Your Friends:
+    {% for friends in friend_list %}
+    <li> {{friends}}</li>
+    {% endfor %}
+</ul>
 
 <ul>
     {% for events in eventu_list %}
@@ -12,19 +41,37 @@
     {% endfor %}
 </ul>
 
+
+{% if user.is_authenticated %}
+
+<!-- <form action="/" method="post">
+    {% csrf_token %}
+    {{task_form}}
+    <input type="submit" class="button" value="Submit Task" name=submit_task>
+</form> -->
+
+
 <form action="/" method="post">
     {% csrf_token %}
     {{form_eventu}}
-    <input type="submit" class="button" value="Submit Event">
+    <input type="submit" class="button" value="Submit Event" name=submit_eventu>
 </form>
+{% endif %}
+
 <div id="app">
     {{message}}
 </div>
 
 {% endblock %}
 
+
 {% block scripts %}
-<!-- development version, includes helpful console warnings -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="{% static "js/myvue.js" %}"></script>
+<!-- development version, includes helpful console warnings --->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-cal"></script>
+<link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+
+
 {% endblock %}

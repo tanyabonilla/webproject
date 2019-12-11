@@ -1,0 +1,17 @@
+/* * {font: 12px sans-serif;margin: 0;padding: 0;}
+
+html, body, #cal {height: 100%;}
+#cal {padding: 40px;box-sizing: border-box;}
+
+.vuecal {
+  margin: auto;
+  max-width: 1300px;
+  max-height: 662px;
+  height: 100%;
+}
+
+.vuecal__event {
+  background-color: rgba(173, 216, 230, 0.5);
+}
+
+a {position: fixed;top: 5px;right: 5px;color: #333;} */
