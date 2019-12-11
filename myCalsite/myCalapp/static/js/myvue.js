@@ -1,45 +1,19 @@
-/*new Vue({
-    el: '#app',
+new Vue({
+    el: '#cal',
+    vuetify: new Vuetify(),
     data: () => ({
-      type: 'month',
-      start: '2019-01-01',
-      end: '2019-01-06',
-      typeOptions: [
-        { text: 'Day', value: 'day' },
-        { text: '4 Day', value: '4day' },
-        { text: 'Week', value: 'week' },
-        { text: 'Month', value: 'month' },
-        { text: 'Custom Daily', value: 'custom-daily' },
-        { text: 'Custom Weekly', value: 'custom-weekly' }
-      ]
-    })
-}) */
-
-var app4 = new Vue({
-  el: '#app-4',
-  data: {
-      posts: [],
-  },
-
-  created: function() {
-      this.fetchPostList();
-      this.timer = setInterval(this.fetchPostList, 10000);
-  },
-  methods: {
-  fetchPostList: function() {
-      axios
-      .get('new_event/')
-      .then(response => (this.posts = response.data.posts))
-      console.log(this.posts)
-      this.seen=false
-      this.unseen=true
-  },
-  cancelAutoUpdate: function() { clearInterval(this.timer) }
-  },
-  beforeDestroy() {
-  clearInterval(this.timer)
-  }
-
+      events: [
+        {
+          name: 'Vacation',
+          start: '2018-12-30',
+          end: '2019-01-02',
+        },
+        {
+        name: 'Meeting',
+        start: '2019-01-07',
+        },
+    ],
+}),
 })
 
 new Vue({
