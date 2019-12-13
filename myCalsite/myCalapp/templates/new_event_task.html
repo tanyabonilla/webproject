@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="grid-x grid-padding-x">
     <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
     <h4 class="text-center">Add New Event</h4>
@@ -10,13 +11,20 @@
     {% endfor %}
 </ul>
 
-{% if user.is_authenticated %}
+
 <form action="/" method="post">
     {% csrf_token %}
     {{form_eventu}}
     <input type="submit" class="button" value="Submit Event">
 </form>
 </div>
+<form action="/" method="post">
+    {% csrf_token %}
+    {{task_form}}
+    <input type="submit" class="button" value="Submit Task" name=submit_task>
+
+</form>
+
 </div>
 {% endif %}
 {% endblock %}

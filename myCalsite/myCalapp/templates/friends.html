@@ -10,6 +10,7 @@ Friends
 {% block content %}
 
 {% if user.is_authenticated %}
+
 <form action="/myfriends/" method="post">
     {% csrf_token %}
     {{add_form}}
@@ -22,13 +23,18 @@ Friends
     <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
 </form>
 {% endif %}
+{% if friend_list == None %}
+<p>You have no friends </p>
 
+{% else %}
 <ul>
     Your Friends:
         {% for friends in friend_list %}
         <li> {{friends}}</li>
         {% endfor %}
     </ul>
+    
+{% endif %}
 
 {% endblock %}
 

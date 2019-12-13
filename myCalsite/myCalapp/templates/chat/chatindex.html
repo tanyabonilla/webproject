@@ -5,33 +5,17 @@
 Chat
 {% endblock %}
 
-{% block login %}
-<div class="top-bar">
-    <div class="top-bar-right">
-        <ul class="menu">
-            {% if user.is_authenticated %}
-            <li><a href="/logout/">Logout</a></li>
-            {% else %}
-            <li><a href="/login/">Log In</a></li>
-            {% endif %}
-        </ul>
-    </div>
-    <div class="top-bar-left">
-        <ul class="menu">
-                <br> Login as {{current_user}} </br>
-            <li><a href="/myfriends/" class="button">Friends</a></li>
-            <li><a href="/chat/" class="button">Chat</a></li>
-        </ul>
-    </div>
-</div>
-
+{% block navigation %}
 {% endblock %}
 
 {% block chats %}
 <!-- add a counter  -->
+{% if user.is_authenticated %}
 <br>What chat room would you like to enter?<br/>
 <input id="room-name-input" type="text" size="100"/><br/>
 <input id="room-name-submit" type="button" value="Enter"/>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}

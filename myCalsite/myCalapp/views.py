@@ -17,6 +17,9 @@ from . import models
 from . import forms
 # Create your views here.
 
+
+
+@login_required(login_url = '/login/')
 def index(request):
     
 #     #n=range(1,10*page+10) #shows 10 num per page
@@ -26,6 +29,14 @@ def index(request):
     if request.method == "POST":
         print("POST index")
         if request.user.is_authenticated:
+            if 'submit_tasku' in request.POST:
+                form_instance_tu = forms.Taskuser_Form(request.POST)
+                if form_instance_tu.is_valid():
+                    form_instance_tu.save_tasku(request=request)
+                    form_instance_tu = forms.Taskuser_Form()#clears the form out if its good
+                    return redirect("/") 
+                else:
+                    return redirect("/") #redirect somewhere else
             if 'submit_eventu' in request.POST:
                 form_instance_eu = forms.Eventuser_Form(request.POST)
                 if form_instance_eu.is_valid():
@@ -36,13 +47,26 @@ def index(request):
                     return redirect("/") #redirect somewhere else
         else:
             form_instance_eu = forms.Eventuser_Form()
+            form_instance_tu = forms.Taskuser_Form()
     else:
         form_instance_eu = forms.Eventuser_Form()
+        form_instance_tu = forms.Taskuser_Form()
 
-    all_events = models.Event_user.objects.all()
+    try:
+        all_events = models.Event_user.objects.filter(user_ID=request.user.id)
+    except models.Event_user.DoesNotExist:
+        all_events = None
 
-    friend_object = models.Friendship.objects.get(user=request.user)
-    all_friends = [friend for friend in friend_object.friends.all() if friend != request.user]
+    try:
+        all_tasks = models.Task_user.objects.filter(user_ID=request.user.id)
+    except models.Task_user.DoesNotExist:
+        all_tasks = None
+
+    try:
+        friend_object = models.Friendship.objects.get(user=request.user)
+        all_friends = [friend for friend in friend_object.friends.all() if friend != request.user]
+    except models.Friendship.DoesNotExist:
+        all_friends = None
 
     cins = "CINS465"
     context = {
@@ -75,7 +99,7 @@ def register(request):
         if form_instance.is_valid():
             user = form_instance.save()
             # form_instance.save_profile(user)
-            return redirect("/login/")
+            return redirect("/login")
     else:
         form_instance = forms.RegistrationForm()
     context = {
@@ -84,8 +108,10 @@ def register(request):
     return render(request, "registration/register.html", context=context)
 
 def logout_view(request):
-    logout(request)return redirect("/login/")
+    logout(request)
+    return redirect("/login")
 
+@login_required(login_url = '/login/')
 def add_remove_friend(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -117,9 +143,12 @@ def add_remove_friend(request):
         form_instance_addFriend = forms.Add_FriendForm()
         form_instance_removeFriend = forms.Remove_FriendForm()
 
-    friend_object = models.Friendship.objects.get(user=request.user)
-    all_friends = [friend for friend in friend_object.friends.all() if friend != request.user]
-
+    try:
+        friend_object = models.Friendship.objects.get(user=request.user)
+        all_friends = [friend for friend in friend_object.friends.all() if friend != request.user]
+    except models.Friendship.DoesNotExist:
+        all_friends = None
+        
     #n=range(1,10*page+10) #shows 10 num per page
      #"reasons_list": n[page*9: (page*9+9)],
 
@@ -131,12 +160,14 @@ def add_remove_friend(request):
     }
     return render(request, "friends.html", context=context)
 
+@login_required(login_url = '/login/')
 def chatindex(request):
     context = {
         "current_user":request.user,
     }
     return render(request, 'chat/chatindex.html', context=context)
 
+@login_required(login_url = '/login/')
 def room(request, room_name):
     context = {
         "current_user":request.user,

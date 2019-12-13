@@ -17,24 +17,14 @@
 </ul>
 
 
-{% if user.is_authenticated %}
-
-<!-- <form action="/" method="post">
-    {% csrf_token %}
-    {{task_form}}
-    <input type="submit" class="button" value="Submit Task" name=submit_task>
-</form> -->
-
-
-<form action="/" method="post">
-    {% csrf_token %}
-    {{form_eventu}}
-    <input type="submit" class="button" value="Submit Event" name=submit_eventu>
-</form>
-{% endif %}
-
 <div id="app">
     {{message}}
+</div>
+
+<div class="container">
+  <div class="btn-holder">
+    <button type="button">Click</button>
+  </div>
 </div>
 
 {% endblock %}
@@ -56,12 +46,9 @@
         <li class="menu-text"><a href="/calendar">MTCAL</a></li>
         <li class="menu-text"><a href="/events">Events</a></li>
         <li class="menu-text"><a href="/tasks">Tasks</a></li>
-        <li class="menu-text"><a href="/daily">Daily</a></li>
-        <li class="menu-text"><a href="/month">Monthly</a></li>
-        <li class="menu-text"><a href="/weekly">Weekly</a></li>
         <li class="menu-text"><a href="/profile">Profile</a></li>
-        <li class="menu-text"><a href="/myfriends/" class="button">Friends</a></li>
-        <li class="menu-text"><a href="/chat/" class="button">Chat</a></li>
+        <li class="menu-text"><a href="/myfriends/" >Friends</a></li>
+        <li class="menu-text"><a href="/chat/">Chat</a></li>
       </ul>
     </div>
     <div class="top-bar-right">
@@ -71,15 +58,12 @@
         <li class="menu-text"><a href="/logout/">Logout</a></li>
 
         {% else %}
-        <li class="menu-text"><a href="/register/">Register</a></li>
-        <li class="menu-text"><a href="/login/">Log In</a></li>
+        <li class="menu-text"><a href="/register">Register</a></li>
+        <li class="menu-text"><a href="/login">Log In</a></li>
         {% endif %}
       </ul>
     </div>
   </div>
-  {% endblock %}
-
-  {% block scripts %}
   {% endblock %}
 </body>
 
