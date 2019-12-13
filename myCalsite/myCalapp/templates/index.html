@@ -16,9 +16,14 @@
     {% endfor %}
 </ul>
 
-
-<div id="app">
-    {{message}}
+<div id="app-4">
+  <ol>
+      <li v-for="myevent in events">
+      {% verbatim %}
+      {{ myevent.e_name}} - {{myevent.user}} - {{myevent.e_startdate}}
+      {% endverbatim %}
+      </li>
+  </ol>
 </div>
 
 <div class="container">
