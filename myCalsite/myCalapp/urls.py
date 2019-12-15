@@ -13,7 +13,7 @@ urlpatterns = [
     path('chat/<str:room_name>/', views.room, name='room'),
     path('new_event/', views.index), #new_event
     path('month/', views.index), #monthly
-    path('events/', views.events_view),
-    path('tasks/', views.tasks_view),
-    #path('events/', views.events_view)
+    # path('events/', views.events_view),
+    # path('tasks/', views.tasks_view),
+    
 ]

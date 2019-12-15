@@ -1,21 +1,3 @@
-new Vue({
-    el: '#cal',
-    vuetify: new Vuetify(),
-    data: () => ({
-      events: [
-        {
-          name: 'Vacation',
-          start: '2018-12-30',
-          end: '2019-01-02',
-        },
-        {
-        name: 'Meeting',
-        start: '2019-01-07',
-        },
-    ],
-}),
-})
-
 var app4 = new Vue({
   el: '#app-4', //change to events
   data: {
