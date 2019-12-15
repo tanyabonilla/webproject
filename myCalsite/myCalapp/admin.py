@@ -9,9 +9,9 @@ admin.site.register(models.Event_user)
 #      list_display = ('title', 'description', 'get_date',)
 
 
-admin.site.register(models.Event_group)
+# admin.site.register(models.Event_group)
 admin.site.register(models.Task_user)
-admin.site.register(models.Task_group)
+# admin.site.register(models.Task_group)
 admin.site.register(models.User_Profile)
 #admin.site.register(models.FriendshipManager)
 admin.site.register(models.Friendship)

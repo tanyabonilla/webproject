@@ -1,3 +1,5 @@
+// import moment from 'moment'
+// Vue.prototype.moment = moment
 
 var app = new Vue({
     el: '#app',
@@ -6,36 +8,46 @@ var app = new Vue({
     }
 })
 
-new Vue({
-    el: '#cal',
-    vuetify: new Vuetify(),
-    data: () => ({
-      events: [
-        {
-          name: 'Vacation',
-          start: '2018-12-30',
-          end: '2019-01-02',
-        },
-        {
-        name: 'Meeting',
-        start: '2019-01-07',
-        },
-    ],
-}),
+
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+      events: [],
+  },
+
+  created: function() {
+      this.fetchEventList();
+      this.timer = setInterval(this.fetchEventList, 10000);
+  },
+  methods: {
+  fetchEventList: function() {
+      axios
+      .get('events/')
+      .then(response => (this.events = response.data.events))
+      console.log(this.posts)
+      this.seen=false
+      this.unseen=true
+  },
+  cancelAutoUpdate: function() { clearInterval(this.timer) }
+  },
+  beforeDestroy() {
+  clearInterval(this.timer)
+  }
+
 })
-/*
-export default {
-    components: { 'vue-cal': vuecal },
-    el: '#cal',
-    data: () => ({
-    events: [
-      {
-        start: '2018-11-19 10:35',
-        end: '2018-11-19 11:30',
-        title: 'Doctor appointment'
-      },
-}
-*/
+
+// Vue.filter('chat_name', function (value) {
+//   if (!value) return ''
+//   value = value.toString()
+//   return value
+// })
+
+// Vue.filter('datetostring', function (value) {
+//   if (!value) return ''
+//   value = value.toString()
+//   return value
+// })
+
 
 
 

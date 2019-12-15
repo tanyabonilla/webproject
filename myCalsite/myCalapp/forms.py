@@ -26,7 +26,9 @@ class Eventuser_Form(forms.Form):
     #eventu_endtime = forms.DateTimeField(label = 'End Time',required=True, input_formats = ['%m/%d/%y %H:%M', '%m/%d/%y'])
     
     def save_eventu(self, request, commit=True):
-        new_eventu = models.Event_user(eventu_name = self.cleaned_data['feventu_name'],
+        new_eventu = models.Event_user(
+            user_ID = request.user,
+            eventu_name = self.cleaned_data['feventu_name'],
             eventu_startday = self.cleaned_data['feventu_startday'],
             eventu_starttime = self.cleaned_data['feventu_starttime'],
             eventu_endday = self.cleaned_data['feventu_endday'],
@@ -47,7 +49,9 @@ class Taskuser_Form(forms.Form):
     ftasku_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA') 
 
     def save_tasku(self, request, commit=True):
-        new_tasku = models.Task_user(eventu_name = form_instance_eu.cleaned_data['ftasku_name'],
+        new_tasku = models.Task_user(
+            user_ID = request.user,
+            eventu_name = form_instance_eu.cleaned_data['ftasku_name'],
             tasku_dudate = form_instance_eu.cleaned_data['ftasku_duedate'],
             tasku_note = form_instance_eu.cleaned_data['ftasku_note'],
             tasku_tag = form_instance_eu.cleaned_data['ftasku_tag'],

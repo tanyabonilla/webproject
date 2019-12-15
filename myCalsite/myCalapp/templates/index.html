@@ -28,12 +28,32 @@
 {% block content %}
 
 {{ welcome }} {{current_user}}
+{% if user.is_authenticated %}
+
 <ul>
     Your Friends:
     {% for friends in friend_list %}
     <li> {{friends}}</li>
     {% endfor %}
 </ul>
+
+<br>
+    Events:
+    <div id="app-4">
+        <ol>
+            <li v-for="myevent in events">
+            {% verbatim %}
+            {{ myevent.e_name}} - {{myevent.user}} - {{myevent.e_startdate}}
+            {% endverbatim %}
+            </li>
+        </ol>
+    </div>
+    <!-- <ul>
+        {% for posts in index_list %}
+            <li> {{posts}}</li>
+        {% endfor %}
+    </ul> -->
+</br>
 
 <ul>
     {% for events in eventu_list %}
@@ -42,13 +62,11 @@
 </ul>
 
 
-{% if user.is_authenticated %}
-
-<!-- <form action="/" method="post">
+<form action="/" method="post">
     {% csrf_token %}
-    {{task_form}}
-    <input type="submit" class="button" value="Submit Task" name=submit_task>
-</form> -->
+    {{form_tasku}}
+    <input type="submit" class="button" value="Submit Task" name=submit_tasku>
+</form>
 
 
 <form action="/" method="post">
@@ -63,15 +81,8 @@
 </div>
 
 {% endblock %}
-
-
+<!-- 
 {% block scripts %}
-<script src="{% static "js/myvue.js" %}"></script>
-<!-- development version, includes helpful console warnings --->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-cal"></script>
-<link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+{{block.super}}
 
-
-{% endblock %}
+{% endblock %} -->

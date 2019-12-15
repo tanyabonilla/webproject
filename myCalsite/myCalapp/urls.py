@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('',  views.index),
-    path('Calendar/', views.index),
+    #path('Calendar/', views.index),
    
     #path('<int:page>/', views.index),
     # path('month/<int:page>/', views.index), <--will be doing something like this
@@ -14,5 +14,6 @@ urlpatterns = [
     path('myfriends/', views.add_remove_friend),
     path('chat/', views.chatindex, name='chat'),
     path('chat/<str:room_name>/', views.room, name='room'),
-    #path('events/', views.events_view),
+    path('events/', views.events_view),
+    path('tasks/', views.tasks_view),
 ]
