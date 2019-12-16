@@ -1,22 +1,64 @@
 from django.db import models
+
 from datetime import datetime
 from django.contrib.auth.models import User
 #from django.db.models.functions import Cast
 from django.db.models import CharField
-from django.db.models.fields import TimeField
-from django.db.models.fields import DurationField
-from django.db.models.fields import DateField
+from django.db.models.fields import TimeField, DurationField, DateField, DateTimeField
 from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
+# for userprofile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
+class FriendshipManager(models.Manager):
+    def befriend(self, user1, user2):
+        print("In FriendshipManager befriend()")
+        #curruser = User_Profile.objects.get(user = user1)
+        friendship = Friendship.objects.get(user=user1)
+        friendship.friends.add(Friendship.objects.get(user=user2))
+
+    def unfriend(self, user1, user2):
+        friendship = Friendship.objects.get(user=user1)
+        friendship.friends.remove(Friendship.objects.get(user=user2))
+
 
 class User_Profile(models.Model):
-    #user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
-    friend_ID = models.ManyToManyField(User)
-    #group_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
+    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = "profile", default = '1')
+    bio = models.TextField(max_length=500, null=True, default = "")
 
-class User_Group(models.Model):
-    user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
-    #Group_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
+    def __str__(self):
+        return "%s user: %s id" % (self.user, self.user.id)
+    
+    #automatically makes a user profile
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            User_Profile.objects.create(user=instance)
+    
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+    
+    #group_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1'
+
+class Friendship(models.Model):
+    user = models.OneToOneField(User, related_name='curruser', on_delete = models.CASCADE, default = '1')
+    friends = models.ManyToManyField('self', related_name = 'friended', symmetrical=False,  default = "1")
+
+    def __str__(self):
+        return "%s user" % (self.user)
+
+    objects = FriendshipManager()
+
+    def friend_count(self):
+        return self.friends.count()
+    friend_count.short_description = _(u'Friends count')
+    def friend_summary(self, count=7):
+        friend_list = self.friends.all().select_related(depth=1)[:count]
+        return u'[%s%s]' % (u', '.join(unicode(f.user) for f in friend_list),
+                            u', ...' if self.friend_count() > count else u'')
+    friend_summary.short_description = _(u'Summary of friends')
 
 class Event_user(models.Model):
     user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
@@ -48,32 +90,6 @@ class Event_user(models.Model):
             statement += " ~~ Tags: " + self.eventu_tag
         return statement
 
-class Event_group(models.Model):
-    #group_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
-    eventg_name = models.CharField(max_length = 50)
-    eventg_startday = models.DateField(auto_now_add = False, null = False, default=datetime.now)
-    eventg_starttime = models.TimeField( auto_now_add = False, null = False, default = '1')
-    eventg_endday = models.DateField(auto_now_add = False, null = False, default=datetime.now)
-    eventg_endtime = models.TimeField(auto_now_add = False, null = False, default = '1')
-    eventg_location = models.CharField(max_length = 50, null = True)
-    eventg_note = models.CharField(max_length=100, null = True)
-    eventg_tag = models.CharField(max_length=25, null = True)
-    def __str__(self):
-        statement = self.eventg_name
-        if (self.eventg_startday == self.eventg_endday):
-            statement += "~~ Day: " + str(self.eventg_startday) + " ~~ Time:" + str(self.eventg_starttime.hour) + ":"  
-            statement += str(self.eventg_starttime.minute) + " - " + str(self.eventg_endtime.hour) + ":" + str(self.eventg_endtime.minute)
-        else: 
-            statement += "~~ Start Day and Time: " + str(self.eventg_startday) + " " + str(self.eventg_starttime.hour) + ":"  + str(self.eventg_starttime.minute)
-            statement += "~~ End Day and Time: " + str(self.eventg_endday) + " " + str(self.eventg_endtime.hour) + ":" + str(self.eventg_endtime.minute)
-        if (self.eventg_location != 'NA'):
-            statement += " ~~ Location: " + self.eventg_location
-        if (self.eventg_note != 'NA'):
-            statement += " ~~ Notes: " + self.eventg_note
-        if (self. eventg_tag != 'NA'):
-            statement += " ~~ Tags: " + self.eventg_tag
-        return statement
-
 class Task_user(models.Model):
     user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
     tasku_name = models.CharField(max_length = 50)
@@ -81,25 +97,10 @@ class Task_user(models.Model):
     tasku_note = models.CharField(max_length=100, null = True, )
     tasku_tag = models.CharField(max_length=25, null = True)
     def __str__(self):
-        statement = self.tasku_name
+        # statement = self.tasku_name
         statement += "~~ Due Day and Time: " + str(self.tasku_duedate.month) + " / " + str(self.tasku_duedate.day) + " "+ str(self.tasku_duedate.hour) + ":"  + str(self.tasku_duedate.minute)
         if (self.tasku_note != 'NA'):
             statement += " ~~ Notes: " + self.tasku_note
         if (self. tasku_tag != 'NA'):
             statement += " ~~ Tags: " + self.tasku_tag
-        return statement
-
-class Task_group(models.Model):
-    #group_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
-    taskg_name = models.CharField(max_length = 50)
-    taskg_duedate = models.DateTimeField(default=now, null = False)
-    taskg_note = models.CharField(max_length=100, null = True)
-    taskg_tag = models.CharField(max_length=25, null = True)
-    def __str__(self):
-        statement = self.taskg_name
-        statement += " ~~ Due Day and Time: " + str(self.taskg_duedate.month) + " / " + str(self.taskg_duedate.day) + " "+ str(self.taskg_duedate.hour) + ":"  + str(self.taskg_duedate.minute)
-        if (self.taskg_note != 'NA'):
-            statement += " ~~ Notes: " + self.taskg_note
-        if (self. taskg_tag != 'NA'):
-            statement += " ~~ Tags: " + self.taskg_tag
         return statement
