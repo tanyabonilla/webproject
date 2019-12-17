@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Tasks and Events
+Add New Events + Tasks
 {% endblock %}
 
 {% block content %}
@@ -10,26 +10,14 @@ Tasks and Events
 {% if user.is_authenticated %}
 <div class="grid-x grid-padding-x">
     <div class="large-12 medium-12 cell">
-        <h2 class="text-center">Create a new...</h2>
+        <h2 class="text-center">New Event or Task</h2>
 
     </div>
 
     
 </div>
 
-<div id= "lists">
-    <ul>
-        {% for events in eventu_list %}
-        <li> {{events}} </li>
-        {% endfor %}
-    </ul>
-
-    <ul>
-        {% for tasks in tasku_list %}
-        <li> {{tasks}} </li>
-        {% endfor %}
-    </ul>
-
+<div class= "center">
     <div id="addevent" class="large-6 medium-6 cell">
         <div class="callout secondary">
             <form action="/new_events_tasks/" method="post">
@@ -79,13 +67,19 @@ Tasks and Events
             </form>
         </div>
     </div>
-    
 </div>
+
+<ul>
+    {% for tasks in tasku_list %}
+    <li> {{tasks}} </li>
+    {% endfor %}
+</ul>
 
 
 {% endif %}
 {% endblock %}
 
 {% block scripts %}
+<button onclick="goBack()">Go Back</button>
 {{block.super}}
 {% endblock %}

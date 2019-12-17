@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect #get_object_or_404 (friends)
+from datetime import datetime, timedelta, date
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from datetime import datetime
+from django.views import generic
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
@@ -8,11 +11,13 @@ from django.contrib.auth.decorators import login_required
 #friends
 from django.views.generic.base import RedirectView
 from django.db import transaction
-from django.shortcuts import get_object_or_404
 #for chat
-from django.utils.safestring import mark_safe
 import json
 
+#CALENDAR LIBS
+import calendar
+from calendar import HTMLCalendar
+from .utils import Calendar
 from django.http import Http404
 
 from . import models
@@ -259,6 +264,39 @@ def friends_view(request):
             currfriend_list = None
         return JsonResponse(currfriend_list) 
     else: HttpResponse("Unsupported HTTP Method")
+
+class CalendarView(generic.ListView):
+    model = models.Event_user
+    template_name = 'calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('month', None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context
+
+def get_date(req_month):
+    if req_month:
+        year, month = (int(x) for x in req_month.split('-'))
+        return date(year, month, day=1)
+    return datetime.today()
+
+def prev_month(d):
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+def next_month(d):
+    days_in_month = calendar.monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month
 
 # def chatrooms_view(request):
 #     if request.method == "GET":

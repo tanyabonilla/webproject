@@ -25,7 +25,7 @@ class Calendar(HTMLCalendar):
 		week = ''
 		for d, weekday in theweek:
 			week += self.formatday(d, events)
-		return f'<tr> {week} </tr>'
+		return f'<tr class="week"> {week} </tr>'
 
 	# formats a month as a table
 	# filter events by year and month
