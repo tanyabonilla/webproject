@@ -7,6 +7,7 @@ Friends
 {% endblock %}
 
 
+
 {% block content %}
 
 {% if user.is_authenticated %}
@@ -25,7 +26,7 @@ Friends
         <input type="submit" class="button" value="Remove Friend" name=submit_enemy>
     </form>
 
-    {% endif %}
+{% endif %}
     <p> Your Friends: </p>
     {% if friend_list == None %}
     <p>You have no friends :( </p>

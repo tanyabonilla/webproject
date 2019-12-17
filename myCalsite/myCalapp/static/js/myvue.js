@@ -76,5 +76,4 @@ var myfriends = new Vue({
     beforeDestroy() {
     clearInterval(this.timer)
     }
-  
   })

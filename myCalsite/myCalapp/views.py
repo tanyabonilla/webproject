@@ -1,6 +1,6 @@
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from datetime import datetime, timedelta, date
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views import generic
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -207,10 +207,19 @@ def new_events_tasks(request):
 def mytask_view(request):
     try:
         all_tasks = models.Task_user.objects.filter(user_ID=request.user.id)
+        task_list = {"tasks":[]}
+        for x in all_tasks:
+            task_list["tasks"] += [{
+                "name": x.tasku_name,
+                "tasku_duedate": x.tasku_duedate,
+                "tasku_note": x.tasku_note,
+            }]
+
     except models.Task_user.DoesNotExist:
         all_tasks = None
     context = {
-        "tasku_list":all_tasks,
+        "tasku_list": task_list,
+        
     }
     return render(request, "mytasks.html", context=context)
 
@@ -252,7 +261,7 @@ def events_view(request):
                     "e_note": e_q.eventu_note,
                     "e_tag": e_q.eventu_tag
                     }]
-        except models.Task_user.DoesNotExist:
+        except models.Event_user.DoesNotExist:
             currevent_list = None
         return JsonResponse(currevent_list) 
     else: HttpResponse("Unsupported HTTP Method")

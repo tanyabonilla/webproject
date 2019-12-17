@@ -23,7 +23,7 @@
 
 .center{
     width:750px;
-    margin: 0 auto;
+    margin: 40 auto;
     vertical-align: middle;
 }
 
@@ -55,9 +55,10 @@
     padding: 10px;
 }
 
+/* go back to calendar*/
 #go_back {
     position:relative;
-    margin-top: 80%;
+    margin-top: 90%;
 }
 /* Calendar css */
 .left {
@@ -102,7 +103,7 @@
 
   /* timeline css */
 
-  .timeline .timeline-item .timeline-content {
+  /* .timeline .timeline-item .timeline-content {
   padding: 20px;
   text-align: right;
   transition: all 0.25s ease-in;
@@ -111,7 +112,7 @@
 }
 
 .timeline .timeline-item .timeline-content p {
-  color: #fefefe;
+  color: black;
 }
 
 .timeline .timeline-item .timeline-content p {
@@ -138,26 +139,26 @@
 }
 
 @media screen and (max-width: 39.9375em) {
-  .timeline {
+  div.timeline {
     margin: 30px;
     padding: 0;
     width: 90%;
   }
-  .timeline::before {
+  div.timeline::before {
     left: 0;
   }
-  .timeline .timeline-item .timeline-content {
+  div.timeline div.timeline-item div.timeline-content {
     float: right;
     text-align: left;
     width: 90%;
   }
-  .timeline .timeline-item .timeline-content::before, .timeline .timeline-item .timeline-content.right::before {
+  div.timeline div.timeline-item div.timeline-content::before, div.timeline .timeline-item div.timeline-content.right::before {
     border-left: 0;
-    border-right: 7px solid #fefefe;
+    border-right: 7px solid black;
     left: 10%;
     margin-left: -6px;
   }
-  .timeline .timeline-item .timeline-icon {
+  div.timeline div.timeline-item div.timeline-icon {
     left: 0;
   }
-}
+} */
