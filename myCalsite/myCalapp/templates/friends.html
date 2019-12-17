@@ -7,35 +7,48 @@ Friends
 {% endblock %}
 
 
+
 {% block content %}
 
 {% if user.is_authenticated %}
-
+<div class="grid-x grid-padding-x">
+    <div class="large-6 medium-6 cell">
 <form action="/myfriends/" method="post">
     {% csrf_token %}
     {{add_form}}
-    <input type="submit" class="button" value="Make a Friend" name=submit_afriend>
+    <input type="submit" class="button" value="Add Friend" name=submit_afriend>
 </form>
 
-<form action="/myfriends/" method="post">
-    {% csrf_token %}
-    {{remove_form}}
-    <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
-</form>
+<p>
+    <form action="/myfriends/" method="post">
+        {% csrf_token %}
+        {{remove_form}}
+        <input type="submit" class="button" value="Remove Friend" name=submit_enemy>
+    </form>
+
 {% endif %}
-{% if friend_list == None %}
-<p>You have no friends </p>
-
-{% else %}
-<ul>
-    Your Friends:
-        {% for friends in friend_list %}
-        <li> {{friends}}</li>
-        {% endfor %}
-    </ul>
+    <p> Your Friends: </p>
+    {% if friend_list == None %}
+    <p>You have no friends :( </p>
     
-{% endif %}
-
+    {% else %}
+        <!-- <ul>
+        Your Friends:
+            {% for friends in friend_list %}
+            <li> {{friends}}</li>
+            {% endfor %}
+        </ul> -->
+        <div id="myfriends">
+            <li v-for="currfriend in friends">
+                {% verbatim %}
+                {{ currfriend.myfriend}}
+                {% endverbatim %}
+            </li>
+        </div>
+    {% endif %}
+</p>
+</div>
+</div>
 {% endblock %}
 
 

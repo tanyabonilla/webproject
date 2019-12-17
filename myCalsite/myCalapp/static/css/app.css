@@ -1,3 +1,4 @@
+/* menu */
 .top-bar, .top-bar ul {
     background-color: #333333;
 }
@@ -16,3 +17,148 @@
 .text-center {
     padding: 20px;
 }
+
+
+/* for create task and event page */
+
+.center{
+    width:750px;
+    margin: 40 auto;
+    vertical-align: middle;
+}
+
+#addevent{
+    width: 350px;
+    float: left;
+}
+
+#addtask {
+    width: 350px;
+    position:relative;
+    float: left;
+}
+  
+/* to create a chat */
+#chatrooms{
+    width: 500px;
+    margin: 0px auto -1px auto;
+    padding: 15px;
+}
+
+#chat-message-input{
+    border: 3px solid #333333;
+    padding: 10px;
+}
+
+#chat-log{
+    border: 3px solid #333333;
+    padding: 10px;
+}
+
+/* go back to calendar*/
+#go_back {
+    position:relative;
+    margin-top: 90%;
+}
+/* Calendar css */
+.left {
+    float: left;
+  }
+  
+  .right {
+    float: right;
+  }
+  
+  .clearfix {
+    margin: 15px;
+  }
+ 
+  /* App styles */
+  .title {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .calendar {
+    width: 98%;
+    margin: auto;
+    font-size: 13px;
+  }
+  
+  .calendar tr, .calendar td {
+    border: 1px solid black;
+  }
+  
+  .calendar th {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  .calendar td {
+    width: 200px;
+    height: 150px;
+    padding: 20px 0px 0px 5px;
+  }
+
+  /* timeline css */
+
+  /* .timeline .timeline-item .timeline-content {
+  padding: 20px;
+  text-align: right;
+  transition: all 0.25s ease-in;
+  width: 45%;
+  background: transparent;
+}
+
+.timeline .timeline-item .timeline-content p {
+  color: black;
+}
+
+.timeline .timeline-item .timeline-content p {
+  font-size: 16px;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.timeline .timeline-item .timeline-content .timeline-content-date {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.timeline .timeline-item .timeline-content .timeline-content-month {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.timeline .timeline-item .timeline-content.right {
+  float: right;
+  text-align: left;
+}
+
+@media screen and (max-width: 39.9375em) {
+  div.timeline {
+    margin: 30px;
+    padding: 0;
+    width: 90%;
+  }
+  div.timeline::before {
+    left: 0;
+  }
+  div.timeline div.timeline-item div.timeline-content {
+    float: right;
+    text-align: left;
+    width: 90%;
+  }
+  div.timeline div.timeline-item div.timeline-content::before, div.timeline .timeline-item div.timeline-content.right::before {
+    border-left: 0;
+    border-right: 7px solid black;
+    left: 10%;
+    margin-left: -6px;
+  }
+  div.timeline div.timeline-item div.timeline-icon {
+    left: 0;
+  }
+} */

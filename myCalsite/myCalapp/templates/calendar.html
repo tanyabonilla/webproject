@@ -1,5 +1,28 @@
-<!-- <!doctype html> -->
 {% extends "index.html" %}
-<!-- {% load static %} -->
+{% load static %}
 
+{% block bootsrap %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 
+{% endblock %}
+
+{% block content %}
+
+{{ calendar }}
+
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+</div>
+
+        <a class="button expanded" href="/new_events_tasks">Add New Event</a>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+{% endblock %}

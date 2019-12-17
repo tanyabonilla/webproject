@@ -2468,12 +2468,12 @@ ul.no-bullet, ol.no-bullet {
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #1779ba;
+  background-color: #D25757;
   color: #fefefe; }
   [data-whatinput='mouse'] .button {
     outline: 0; }
   .button:hover, .button:focus {
-    background-color: #14679e;
+    background-color: #333333;
     color: #fefefe; }
   .button.tiny {
     font-size: 0.6rem; }
@@ -2487,7 +2487,7 @@ ul.no-bullet, ol.no-bullet {
     margin-right: 0;
     margin-left: 0; }
   .button.primary {
-    background-color: #1779ba;
+    background-color: #D25757;
     color: #fefefe; }
     .button.primary:hover, .button.primary:focus {
       background-color: #126195;
@@ -3649,9 +3649,10 @@ select {
               justify-content: flex-start; }
   .menu .menu-text {
     padding: 0.8rem .5rem;
+    position: center;
     font-weight: bold;
-    line-height: 1;
-    color: inherit; }
+    line-height: 2.5;
+    color: white; }
 
 .menu-centered > .menu {
   -webkit-box-pack: center;
@@ -6360,3 +6361,47 @@ a.thumbnail {
 .long-delay {
   -webkit-animation-delay: 700ms !important;
           animation-delay: 700ms !important; }
+
+
+@media screen and (max-width: 39.9375em) {
+  .button.small-only-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .button.medium-only-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media screen and (max-width: 63.9375em) {
+  .button.medium-down-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media print, screen and (min-width: 40em) {
+  .button.medium-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {
+  .button.large-only-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media screen and (max-width: 74.9375em) {
+  .button.large-down-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }
+@media print, screen and (min-width: 64em) {
+  .button.large-expanded {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0; } }

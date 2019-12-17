@@ -1,57 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block content %}
-{{ welcome }} {{current_user}}
-<ul>
-    Your Friends:
-    {% for friends in friend_list %}
-    <li> {{friends}}</li>
-    {% endfor %}
-</ul>
 
-<ul>
-    {% for events in eventu_list %}
-    <li> {{events}}</li>
-    {% endfor %}
-</ul>
-
-<div id="app-4">
-  <ol>
-      <li v-for="myevent in events">
-      {% verbatim %}
-      {{ myevent.e_name}} - {{myevent.user}} - {{myevent.e_startdate}}
-      {% endverbatim %}
-      </li>
-  </ol>
-</div>
-
-<div class="container">
-  <div class="btn-holder">
-    <button type="button">Click</button>
-  </div>
-</div>
-
-{% endblock %}
-
-
-{% block scripts %}
-
-<!-- development version, includes helpful console warnings --->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-cal"></script>
-<link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
-{% endblock %}
-
-  {% block navigation %}
+{% block navigation %}
   <div class="top-bar">
     <div class="top-bar-left">
       <ul class="menu">
-        <li class="menu-text"><a href="/calendar">MTCAL</a></li>
-        <li class="menu-text"><a href="/events">Events</a></li>
-        <li class="menu-text"><a href="/tasks">Tasks</a></li>
-        <li class="menu-text"><a href="/profile">Profile</a></li>
+        <li class="menu-text"><a href="">MTCAL</a></li>
+        <li class="menu-text"><a href="/new_events_tasks">Create Events or Tasks</a></li>
+        <li class="menu-text"><a href="/mytasks">Tasks</a></li>
+        <!-- <li class="menu-text"><a href="/profile">Profile</a></li> -->
         <li class="menu-text"><a href="/myfriends/" >Friends</a></li>
         <li class="menu-text"><a href="/chat/">Chat</a></li>
       </ul>
@@ -69,7 +27,66 @@
       </ul>
     </div>
   </div>
-  {% endblock %}
-</body>
+{% endblock %}
 
-</html>
+
+{% block content %}
+{{ welcome }} {{current_user}}
+<ul>
+    Your Friends:
+    {% for friends in friend_list %}
+    <li> {{friends}}</li>
+    {% endfor %}
+</ul>
+
+<!-- <p>
+    My Events:
+    <div id="myevents">
+        {% if eventu_list == None %}
+                <p>You have no events </p>
+        {% else %}
+            <ol>
+                <li v-for="myevent in events">
+                    {% verbatim %}
+                    {{ myevent.e_name}} - {{myevent.user}} - {{myevent.e_startdate}}
+                    {% endverbatim %}
+                </li>
+            </ol>
+        {% endif %}
+    </div>
+    
+</p>
+
+
+
+
+<ul>
+    {% for events in eventu_list %}
+    <li> {{events}}</li>
+    {% endfor %}
+</ul>
+
+<!-- <div class="container">
+  <div class="btn-holder">
+    <button type="button">Click</button>
+  </div>
+</div> -->
+
+{% endblock %}
+
+
+{% block scripts %}
+{{block.super}}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+
+
+<!-- <script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-cal"></script>
+<link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet"> -->
+{% endblock %}
+
+
+
+
