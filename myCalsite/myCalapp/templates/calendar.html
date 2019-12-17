@@ -1,11 +1,6 @@
-
-
 {% extends "index.html" %}
 {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="css/cal.css">
-{% endblock %}
 
 {% block content %}
 
@@ -16,9 +11,6 @@
 	<a class="btn btn-info right" href="{'% url 'myCalapp:calendar' %}?{'{ next_month }}"> Next Month </a>
 </div>
 
-<div class="row">
-    <div class="small-6 small-centered text-center columns">
-        <a href="/new_events_tasks" class="button">Default Button</a>
-    </div>
-</div>
+        <a class="button expanded" href="/new_events_tasks">Add New Event</a>
+
 {% endblock %}

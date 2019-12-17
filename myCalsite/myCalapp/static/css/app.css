@@ -36,12 +36,16 @@
     float: left;
 }
 
-#addtask{
+#addtask {
     width: 350px;
     position:relative;
     float: left;
 }
 
+#go_back {
+    position:relative;
+    margin-top: 80%;
+}
 /* Calendar css */
 .left {
     float: left;
