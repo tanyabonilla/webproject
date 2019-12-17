@@ -2473,7 +2473,7 @@ ul.no-bullet, ol.no-bullet {
   [data-whatinput='mouse'] .button {
     outline: 0; }
   .button:hover, .button:focus {
-    background-color: #14679e;
+    background-color: #333333;
     color: #fefefe; }
   .button.tiny {
     font-size: 0.6rem; }

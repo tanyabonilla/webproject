@@ -104,3 +104,9 @@ class Task_user(models.Model):
         if (self. tasku_tag != 'NA'):
             statement += " ~~ Tags: " + self.tasku_tag
         return statement
+
+class Chatroom(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name

@@ -18,16 +18,12 @@
     padding: 20px;
 }
 
-.create
-{
-    background-color: #D25757;
-    color: #000000;
-}
 
 /* for create task and event page */
-.center {
-    width: 750px;
-    margin: 0px auto;
+
+.center{
+    width:750px;
+    margin: 0 auto;
     vertical-align: middle;
 }
 
@@ -40,6 +36,23 @@
     width: 350px;
     position:relative;
     float: left;
+}
+  
+/* to create a chat */
+#chatrooms{
+    width: 500px;
+    margin: 0px auto -1px auto;
+    padding: 15px;
+}
+
+#chat-message-input{
+    border: 3px solid #333333;
+    padding: 10px;
+}
+
+#chat-log{
+    border: 3px solid #333333;
+    padding: 10px;
 }
 
 #go_back {
@@ -86,4 +99,3 @@
     height: 150px;
     padding: 20px 0px 0px 5px;
   }
-  
