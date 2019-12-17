@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect #get_object_or_404 (friends)
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from datetime import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -13,6 +13,8 @@ from django.shortcuts import get_object_or_404
 from django.utils.safestring import mark_safe
 import json
 
+from django.http import Http404
+
 from . import models
 from . import forms
 # Create your views here.
@@ -25,32 +27,6 @@ def index(request):
 #     #n=range(1,10*page+10) #shows 10 num per page
 #     #"reasons_list": n[page*9: (page*9+9)],
 #     #n=range(1,10*page+10) #show 9 pages
-
-    if request.method == "POST":
-        print("POST index")
-        if request.user.is_authenticated:
-            if 'submit_tasku' in request.POST:
-                form_instance_tu = forms.Taskuser_Form(request.POST)
-                if form_instance_tu.is_valid():
-                    form_instance_tu.save_tasku(request=request)
-                    form_instance_tu = forms.Taskuser_Form()#clears the form out if its good
-                    return redirect("/") 
-                else:
-                    return redirect("/") #redirect somewhere else
-            if 'submit_eventu' in request.POST:
-                form_instance_eu = forms.Eventuser_Form(request.POST)
-                if form_instance_eu.is_valid():
-                    form_instance_eu.save_eventu(request=request)
-                    form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
-                    return redirect("/") 
-                else:
-                    return redirect("/") #redirect somewhere else
-        else:
-            form_instance_eu = forms.Eventuser_Form()
-            form_instance_tu = forms.Taskuser_Form()
-    else:
-        form_instance_eu = forms.Eventuser_Form()
-        form_instance_tu = forms.Taskuser_Form()
 
     try:
         all_events = models.Event_user.objects.filter(user_ID=request.user.id)
@@ -68,7 +44,6 @@ def index(request):
     except models.Friendship.DoesNotExist:
         all_friends = None
 
-    cins = "CINS465"
     context = {
         "title":"Home",
         "welcome":"Hello",
@@ -77,9 +52,7 @@ def index(request):
         #"index_list": n[0:9],
         "eventu_list":all_events,
         "friend_list":all_friends,
-        "course": cins,  
-        "opening":"Hi, welcome to fall semester CINS465",
-        "form_eventu": form_instance_eu,
+        #"form_eventu": form_instance_eu,
         #"eventuform": eventu_instance,
     }
 #     #if page is home return home.html
@@ -174,3 +147,126 @@ def room(request, room_name):
         'room_name_json': mark_safe(json.dumps(room_name)),
     }
     return render(request, 'chat/room.html',  context=context)
+
+@login_required(login_url='/login/')
+# @csrf_exempt
+def new_events_tasks(request):
+    if request.method == "POST":
+        
+        if request.user.is_authenticated:
+            if 'submit_tasku' in request.POST:
+                print("POST tasks")
+                form_instance_tu = forms.Taskuser_Form(request.POST)
+                if form_instance_tu.is_valid():
+                    form_instance_tu.save_tasku(request=request)
+                    form_instance_tu = forms.Taskuser_Form()#clears the form out if its good
+                    print("POST saved task")
+                    return redirect("/new_events_tasks/") 
+                else:
+                    print("POST not saved task, %s", form_instance_tu.errors)
+                    return redirect("/new_events_tasks/") #redirect somewhere else
+            if 'submit_eventu' in request.POST:
+                form_instance_eu = forms.Eventuser_Form(request.POST)
+                if form_instance_eu.is_valid():
+                    form_instance_eu.save_eventu(request=request)
+                    form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
+                    return redirect("/new_events_tasks/") 
+                else:
+                    return redirect("/new_events_tasks/") #redirect somewhere else
+        else:
+            form_instance_eu = forms.Eventuser_Form()
+            form_instance_tu = forms.Taskuser_Form()
+    else:
+        form_instance_eu = forms.Eventuser_Form()
+        form_instance_tu = forms.Taskuser_Form()
+
+    try:
+        all_events = models.Event_user.objects.filter(user_ID=request.user.id)
+    except models.Event_user.DoesNotExist:
+        all_events = None
+
+    try:
+        all_tasks = models.Task_user.objects.filter(user_ID=request.user.id)
+    except models.Task_user.DoesNotExist:
+        all_tasks = None
+
+    context = {
+        "current_user":request.user,
+        #"reasons_list": n[0:9],
+        #"index_list": n[0:9],
+        # "error":form_instance_tu.errors,
+        "eventu_list":all_events,
+        "tasku_list":all_tasks,
+        "form_tasku": form_instance_tu,
+        "form_eventu": form_instance_eu,
+    }
+    return render(request, "new_events_tasks.html", context=context)
+
+@login_required(login_url='/login/')
+def tasks_view(request):
+    if request.method == 'GET':
+        try:
+            task_query = models.Task_user.objects.filter(user_ID=request.user.id).order_by('-tasku_duedate')
+            currtask_list = {"tasks":[]}
+            for t_q in task_query:
+                currtask_list["tasks"] += [{
+                    "user": t_q.user_ID.username,
+                    "t_name": t_q.tasku_name,
+                    "t_duedate": t_q.tasku_duedate,
+                    "t_note": t_q.tasku_note,
+                    "t_tag": t_q.tasku_tag,
+                    }]
+        except models.Task_user.DoesNotExist:
+            currtask_list = None
+        return JsonResponse(currtask_list) 
+    else: HttpResponse("Unsupported HTTP Method")
+
+@login_required(login_url='/login/')
+def events_view(request):
+    if request.method == 'GET':
+        try:
+            event_query = models.Event_user.objects.filter(user_ID=request.user.id).order_by('-eventu_startday')
+            currevent_list = {"events":[]}
+            for e_q in event_query:
+                currevent_list["events"] += [{
+                    "user": e_q.user_ID.username,
+                    "e_name": e_q.eventu_name,
+                    "e_startdate": e_q.eventu_startday,
+                    "e_starttime": e_q.eventu_starttime,
+                    "e_enddate": e_q.eventu_endday,
+                    "e_endtime": e_q.eventu_endtime,
+                    "e_location": e_q.eventu_location,
+                    "e_note": e_q.eventu_note,
+                    "e_tag": e_q.eventu_tag
+                    }]
+        except models.Task_user.DoesNotExist:
+            currevent_list = None
+        return JsonResponse(currevent_list) 
+    else: HttpResponse("Unsupported HTTP Method")
+
+@login_required(login_url='/login/')
+def friends_view(request):
+    if request.method == 'GET':
+        try:
+            friend_object = models.Friendship.objects.get(user=request.user)
+            friend_query = [friend for friend in friend_object.friends.all() if friend != request.user]
+            currfriend_list = {"friends":[]}
+            for f_q in friend_query:
+                currfriend_list["friends"] += [{
+                    "myfriend": f_q.user.username,
+                }]
+        except models.Friendship.DoesNotExist:
+            currfriend_list = None
+        return JsonResponse(currfriend_list) 
+    else: HttpResponse("Unsupported HTTP Method")
+
+# def chatrooms_view(request):
+#     if request.method == "GET":
+#         chatroom_query = models.chatroom.objects.all()
+#         chatroom_list = {"chatrooms":[]}
+#         for cr_q in room_query:
+#             chatroom_list["chatrooms"] += [{
+#                 "name":cr.name
+#             }]
+#         return JsonResponse(chatroom_list)
+#     return HttpResponse("Unsupported HTTP method")

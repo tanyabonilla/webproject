@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
+
 #class PostForm(forms.Form):
 #    post = forms.CharField(label = 'Post', max_length = 240, validators = [validate_slug])
 
@@ -42,15 +43,17 @@ class Eventuser_Form(forms.Form):
     
 class Taskuser_Form(forms.Form):
     ftasku_name = forms.CharField(label = 'Event Name', max_length = 50, required = True, strip = True)
-    ftasku_duedate = forms.DateTimeField(label = 'Due Date Time',required=True, input_formats = ('%m/%d/%Y %I:%M %p'))
+    #ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m AM/PM))',required=True, input_formats = ('%m/%d/%Y %I:%M %A') ))
+    ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m))',required=True,widget = forms.DateTimeInput())
     ftasku_note = forms.CharField(label = 'Notes', max_length = 100, required = False, strip = True, empty_value = 'NA')
     ftasku_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA') 
 
     def save_tasku(self, request, commit=True):
-        new_tasku = models.Task_user(eventu_name = form_instance_eu.cleaned_data['ftasku_name'],
-            tasku_dudate = form_instance_eu.cleaned_data['ftasku_duedate'],
-            tasku_note = form_instance_eu.cleaned_data['ftasku_note'],
-            tasku_tag = form_instance_eu.cleaned_data['ftasku_tag'],
+        print("In save tasks")
+        new_tasku = models.Task_user(tasku_name = self.cleaned_data['ftasku_name'],
+            tasku_duedate = self.cleaned_data['ftasku_duedate'],
+            tasku_note = self.cleaned_data['ftasku_note'],
+            tasku_tag = self.cleaned_data['ftasku_tag'],
             )
         if commit:
             new_tasku.save() #goes into the database

@@ -2468,12 +2468,12 @@ ul.no-bullet, ol.no-bullet {
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #1779ba;
+  background-color: #D25757;
   color: #fefefe; }
   [data-whatinput='mouse'] .button {
     outline: 0; }
   .button:hover, .button:focus {
-    background-color: #14679e;
+    background-color: #000000;
     color: #fefefe; }
   .button.tiny {
     font-size: 0.6rem; }

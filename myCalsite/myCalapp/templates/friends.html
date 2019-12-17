@@ -17,25 +17,34 @@ Friends
     <input type="submit" class="button" value="Make a Friend" name=submit_afriend>
 </form>
 
-<form action="/myfriends/" method="post">
-    {% csrf_token %}
-    {{remove_form}}
-    <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
-</form>
-{% endif %}
-{% if friend_list == None %}
-<p>You have no friends </p>
+<p>
+    <form action="/myfriends/" method="post">
+        {% csrf_token %}
+        {{remove_form}}
+        <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
+    </form>
 
-{% else %}
-<ul>
-    Your Friends:
-        {% for friends in friend_list %}
-        <li> {{friends}}</li>
-        {% endfor %}
-    </ul>
+    {% endif %}
+    {% if friend_list == None %}
+    <p>You have no friends </p>
     
-{% endif %}
-
+    {% else %}
+        <!-- <ul>
+        Your Friends:
+            {% for friends in friend_list %}
+            <li> {{friends}}</li>
+            {% endfor %}
+        </ul> -->
+        <div id="myfriends">
+            Your Friends:
+            <li v-for="currfriend in friends">
+                {% verbatim %}
+                {{ currfriend.myfriend}}
+                {% endverbatim %}
+            </li>
+        </div>
+    {% endif %}
+</p>
 {% endblock %}
 
 
