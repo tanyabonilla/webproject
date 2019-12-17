@@ -60,13 +60,9 @@ Add New Events + Tasks
     </div>
 </div>
 
-<ul>
-    {% for tasks in tasku_list %}
-    <li> {{tasks}} </li>
-    {% endfor %}
-</ul>
+
 <div id="go_back">
-<a class="button expanded" href="/calendar">Calendar</a>
+<a class="button expanded" href="/">Calendar</a>
 </div>
 {% endif %} <!-- if is_authenticated -->
 {% endblock %}

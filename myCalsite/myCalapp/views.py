@@ -197,15 +197,23 @@ def new_events_tasks(request):
 
     context = {
         "current_user":request.user,
-        #"reasons_list": n[0:9],
-        #"index_list": n[0:9],
-        # "error":form_instance_tu.errors,
         "eventu_list":all_events,
         "tasku_list":all_tasks,
         "form_tasku": form_instance_tu,
         "form_eventu": form_instance_eu,
     }
     return render(request, "new_events_tasks.html", context=context)
+
+def mytask_view(request):
+    try:
+        all_tasks = models.Task_user.objects.filter(user_ID=request.user.id)
+    except models.Task_user.DoesNotExist:
+        all_tasks = None
+    context = {
+        "tasku_list":all_tasks,
+    }
+    return render(request, "mytasks.html", context=context)
+
 
 @login_required(login_url='/login/')
 def tasks_view(request):
