@@ -10,23 +10,25 @@ Friends
 {% block content %}
 
 {% if user.is_authenticated %}
-
+<div class="grid-x grid-padding-x">
+    <div class="large-6 medium-6 cell">
 <form action="/myfriends/" method="post">
     {% csrf_token %}
     {{add_form}}
-    <input type="submit" class="button" value="Make a Friend" name=submit_afriend>
+    <input type="submit" class="button" value="Add Friend" name=submit_afriend>
 </form>
 
 <p>
     <form action="/myfriends/" method="post">
         {% csrf_token %}
         {{remove_form}}
-        <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
+        <input type="submit" class="button" value="Remove Friend" name=submit_enemy>
     </form>
 
     {% endif %}
+    <p> Your Friends: </p>
     {% if friend_list == None %}
-    <p>You have no friends </p>
+    <p>You have no friends :( </p>
     
     {% else %}
         <!-- <ul>
@@ -36,7 +38,7 @@ Friends
             {% endfor %}
         </ul> -->
         <div id="myfriends">
-            Your Friends:
+            <p> Your Friends: </p>
             <li v-for="currfriend in friends">
                 {% verbatim %}
                 {{ currfriend.myfriend}}
@@ -45,6 +47,8 @@ Friends
         </div>
     {% endif %}
 </p>
+</div>
+</div>
 {% endblock %}
 
 

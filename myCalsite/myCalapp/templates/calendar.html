@@ -1,5 +1,16 @@
-<!-- <!doctype html> -->
 {% extends "index.html" %}
-<!-- {% load static %} -->
+{% load static %}
 
 
+{% block content %}
+
+{{ calendar }}
+
+<div class="clearfix">
+	<a class="btn btn-info left" href="{'% url 'myCalapp:calendar' %}?{'{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{'% url 'myCalapp:calendar' %}?{'{ next_month }}"> Next Month </a>
+</div>
+
+        <a class="button expanded" href="/new_events_tasks">Add New Event</a>
+
+{% endblock %}

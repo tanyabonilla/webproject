@@ -2,92 +2,73 @@
 {% load static %}
 
 {% block title %}
-Tasks and Events
+Add New Events + Tasks
 {% endblock %}
 
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class="grid-x grid-padding-x">
-    <div class="large-12 medium-12 cell">
-        <h2 class="text-center">Create a new...</h2>
-
-        <div class= "center"">
-            <ul>
-                {% for events in eventu_list %}
-                <li> {{events}} </li>
-                {% endfor %}
-            </ul>
-        
-            <ul>
-                {% for tasks in tasku_list %}
-                <li> {{tasks}} </li>
-                {% endfor %}
-            </ul>
-            
-            <!-- <div class="center"> -->
-                <div id="addevent" class="large-6 medium-6 cell">
-                    <div class="callout secondary">
-                        <form action="/new_events_tasks/" method="post">
-                            <h4 class="text-center">Event</h4>
-                            {% csrf_token %}
-                            
-                            {% if form_eventu.errors %}
-                                {% for field in form_eventu %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-danger">
-                                            <strong>{{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form_eventu.non_field_errors %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                            {{form_eventu}}
-                            <input type="submit" class="button" value="Submit Event" name=submit_eventu>
-                        </form>
-                    </div>
-                </div>
-                    
-                <div id="addtask" class="large-6 medium-6 cell">
-                    <div class="callout secondary">
-                        <form action="/new_events_tasks/" method="post">
-                            <h4 class="text-center">Task</h4>
-                            {% csrf_token %}
-                            
-                            {% if form_tasku.errors %}
-                                {% for field in form_tasku %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-danger">
-                                            <strong>{{ error|escape }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form_tasku.non_field_errors %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                            {{form_tasku}}
-                            <input type="submit" class="button" value="Submit Task" name=submit_tasku>
-                        </form>
-                    </div>
-                </div>
-            <!-- </div> -->
-
+<div class= "center">
+    <div id="addevent" class="large-6 medium-6 cell">
+        <div class="callout secondary">
+            <form action="/new_events_tasks/" method="post">
+                <h4 class="text-center">Event</h4>
+                {% csrf_token %}
+                {{form_eventu}}
+                {% if form_eventu.errors %}
+                    {% for field in form_eventu %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form_eventu.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <input type="submit" class="button" value="Submit Event" name=submit_eventu>
+            </form>
         </div>
     </div>
-
+        
+    <div id="addtask" class="large-6 medium-6 cell">
+        <div class="callout secondary">
+            <form action="/new_events_tasks/" method="post">
+                <h4 class="text-center">Task</h4>
+                {% csrf_token %}
+                {{form_tasku}}
+                {% if form_tasku.errors %}
+                    {% for field in form_tasku %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form_tasku.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <input type="submit" class="button" value="Submit Task" name=submit_tasku>
+            </form>
+        </div>
+    </div>
 </div>
 
-
-
-
-{% endif %}
+<ul>
+    {% for tasks in tasku_list %}
+    <li> {{tasks}} </li>
+    {% endfor %}
+</ul>
+<div id="go_back">
+<a class="button expanded" href="/calendar">Calendar</a>
+</div>
+{% endif %} <!-- if is_authenticated -->
 {% endblock %}
 
 {% block scripts %}

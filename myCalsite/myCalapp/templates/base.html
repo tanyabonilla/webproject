@@ -12,10 +12,17 @@
 
   <link rel="stylesheet" href="{% static "css/app.css" %}">
   <link rel="stylesheet" href="{% static "css/foundation.css" %}">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+  <link rel="stylesheet" type="text/css" href="{'% static 'cal/css/styles.css' %}">
+  {% block css %}
+  
+  {% endblock %}
+
 </head>
 
 <body>
@@ -42,18 +49,23 @@
 
   <!--inherits code-->
   {% block scripts %}
-<script src="{% static "js/vendor/jquery.js" %}"></script>
-<script src="{% static "js/vendor/what-input.js" %}"></script>
-<script src="{% static "js/vendor/foundation.js" %}"></script> 
-<script src="{% static "js/app.js" %}"></script>
+  <script src="{% static "js/vendor/jquery.js" %}"></script>
+  <script src="{% static "js/vendor/what-input.js" %}"></script>
+  <script src="{% static "js/vendor/foundation.js" %}"></script> 
+  <script src="{% static "js/app.js" %}"></script>
 
-<script src="{%static "js/vendor/foundation.topbar.js" %}"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<!-- development version, includes helpful console warnings --->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="{% static "js/myvue.js" %}"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script> -->
-  {% endblock %}
+  <script src="{%static "js/vendor/foundation.topbar.js" %}"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- development version, includes helpful console warnings --->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="{% static "js/myvue.js" %}"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+    {% endblock %}
 
 </body>
 
