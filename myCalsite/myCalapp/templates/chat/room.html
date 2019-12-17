@@ -8,11 +8,15 @@ Chat Room
 {% endblock %}
 
 
-{% block content %}
-
-<textarea id="chat-log" cols="100" rows="10"></textarea><br/>
-<input id="chat-message-input" type="text" size="100"/><br/>
-<input id="chat-message-submit" type="button" value="Send"/>
+{% block chats %}
+<div class="secondary callout">
+    <h4 class="text-center">
+        <strong>Talk with some Friends</strong>
+    </h4>
+    <textarea id="chat-log"  cols="100" rows="10"></textarea><br/>
+    <input id="chat-message-input"  type="text" size="100"/><br/>
+    <input id="chat-message-submit" type="button" value="Send"/>
+</div>
 
 {% endblock %}
 

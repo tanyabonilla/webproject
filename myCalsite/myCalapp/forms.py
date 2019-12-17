@@ -125,3 +125,14 @@ class RegistrationForm(UserCreationForm):
     #     profile = models.User_Profile(user=user.pk)
     #     profile.save()
 
+# class ChatForm(forms.Form):
+#     chat = forms.CharField(label='Chatroom Name', max_length=25) 
+
+#     def save(self, request, commit=True):
+#         chat_instance = models.chatroom(
+#             name = self.cleaned_data["chat"])
+
+#         if commit:
+#             chat_instance.save()
+#         return chat_instance
+

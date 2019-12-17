@@ -1,20 +1,28 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 {% load static %}
 
 {% block title %}
 Chat
 {% endblock %}
 
-{% block navigation %}
+{% block content %}
 {% endblock %}
 
 {% block chats %}
 <!-- add a counter  -->
-{% if user.is_authenticated %}
-<br>What chat room would you like to enter?<br/>
-<input id="room-name-input" type="text" size="100"/><br/>
-<input id="room-name-submit" type="button" value="Enter"/>
-{% endif %}
+<div class="grid-x grid-padding-x">
+    <div id="chatrooms" class="large-6 medium-6 cell">
+        <div class="secondary callout">
+            {% if user.is_authenticated %}
+            <h5 class="text-center">What chat room would you like to enter?</h5>
+            <input id="room-name-input" type="text" size="100"/><br/>
+            <input id="room-name-submit" type="button" value="Enter"/>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock %}
 
