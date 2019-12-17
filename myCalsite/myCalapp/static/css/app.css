@@ -1,3 +1,4 @@
+/* menu */
 .top-bar, .top-bar ul {
     background-color: #333333;
 }
@@ -16,3 +17,39 @@
 .text-center {
     padding: 20px;
 }
+
+.create
+{
+    background-color: #D25757;
+    color: #000000;
+}
+
+/* .button{
+    background-color: #D25757;
+    color: #000000; 
+}
+
+.button:hover, .button:focus {
+    background-color: #000000;
+    color: #D25757; } */
+
+/* for create task and event page */
+#lists {
+    width: 1200px;
+    margin: 0px auto -1px auto;
+    padding: 15px;
+    
+}
+
+#addevent{
+    width: 350px;
+    float: left;
+}
+
+#addtask{
+    width: 350px;
+    position:relative;
+    float: left;
+}
+
+
