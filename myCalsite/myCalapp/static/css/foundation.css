@@ -2468,12 +2468,12 @@ ul.no-bullet, ol.no-bullet {
   line-height: 1;
   text-align: center;
   cursor: pointer;
-  background-color: #1779ba;
+  background-color: #D25757;
   color: #fefefe; }
   [data-whatinput='mouse'] .button {
     outline: 0; }
   .button:hover, .button:focus {
-    background-color: #14679e;
+    background-color: #000000;
     color: #fefefe; }
   .button.tiny {
     font-size: 0.6rem; }
@@ -3648,7 +3648,7 @@ select {
           -ms-flex-pack: start;
               justify-content: flex-start; }
   .menu .menu-text {
-    padding: 0.7rem 1rem;
+    padding: 0.8rem .5rem;
     font-weight: bold;
     line-height: 1;
     color: inherit; }
@@ -5380,13 +5380,13 @@ a.thumbnail {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.5rem;
+  padding: .1rem;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
   .top-bar,
   .top-bar ul {
-    background-color: #e6e6e6; }
+    background-color: #333333; }
   .top-bar input {
     max-width: 200px;
     margin-right: 1rem; }

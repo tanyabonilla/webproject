@@ -1,0 +1,53 @@
+
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+Friends
+{% endblock %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<form action="/myfriends/" method="post">
+    {% csrf_token %}
+    {{add_form}}
+    <input type="submit" class="button" value="Make a Friend" name=submit_afriend>
+</form>
+
+<p>
+    <form action="/myfriends/" method="post">
+        {% csrf_token %}
+        {{remove_form}}
+        <input type="submit" class="button" value="Remove a Friend" name=submit_enemy>
+    </form>
+
+    {% endif %}
+    {% if friend_list == None %}
+    <p>You have no friends </p>
+    
+    {% else %}
+        <!-- <ul>
+        Your Friends:
+            {% for friends in friend_list %}
+            <li> {{friends}}</li>
+            {% endfor %}
+        </ul> -->
+        <div id="myfriends">
+            Your Friends:
+            <li v-for="currfriend in friends">
+                {% verbatim %}
+                {{ currfriend.myfriend}}
+                {% endverbatim %}
+            </li>
+        </div>
+    {% endif %}
+</p>
+{% endblock %}
+
+
+{% block scripts %}
+{{block.super}}
+{% endblock %}
