@@ -4,20 +4,23 @@
 
 {% block content %}
 <h1 id="header"> My Tasks </h1>
-<div id="mytasks">
+<div id="mytasks" class="align-center-middle">
     <span v-if="tasks.length == 0">
     <p class="align-center">you have no tasks</p>
     <a class="button" id="new_task" href="/new_events_tasks">Create New Task</a>
     </span>
     <span v-else>
-    <ol>
+
+    <ol >
         <li v-for="taskitem in tasks">
         {% verbatim %}
+        <div class="card" style="width: 300px;">
         Task: {{taskitem.t_name}}<br>
         Due Date: {{taskitem.t_duedate}} <br>
         Note: {{taskitem.t_note}}<br>
         {% endverbatim %}
         <br>
+        </div>
         </li>
     </ol>
     <a class="button" id="new_task" href="/new_events_tasks">Create New Task</a>

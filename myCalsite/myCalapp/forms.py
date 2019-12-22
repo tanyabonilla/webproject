@@ -27,7 +27,8 @@ class Eventuser_Form(forms.Form):
     #eventu_endtime = forms.DateTimeField(label = 'End Time',required=True, input_formats = ['%m/%d/%y %H:%M', '%m/%d/%y'])
     
     def save_eventu(self, request, commit=True):
-        new_eventu = models.Event_user(eventu_name = self.cleaned_data['feventu_name'],
+        new_eventu = models.Event_user(eventu_name=self.cleaned_data['feventu_name'],
+            user_ID = request.user,
             eventu_startday = self.cleaned_data['feventu_startday'],
             eventu_starttime = self.cleaned_data['feventu_starttime'],
             eventu_endday = self.cleaned_data['feventu_endday'],
@@ -42,15 +43,16 @@ class Eventuser_Form(forms.Form):
         return new_eventu
     
 class Taskuser_Form(forms.Form):
-    ftasku_name = forms.CharField(label = 'Event Name', max_length = 50, required = True, strip = True)
+    ftasku_name = forms.CharField(label = 'Task Name', max_length = 50, required = True, strip = True)
     #ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m AM/PM))',required=True, input_formats = ('%m/%d/%Y %I:%M %A') ))
-    ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m))',required=True,widget = forms.DateTimeInput())
+    ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy H:MM))',required=True,widget = forms.DateTimeInput())
     ftasku_note = forms.CharField(label = 'Notes', max_length = 100, required = False, strip = True, empty_value = 'NA')
     ftasku_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA') 
 
     def save_tasku(self, request, commit=True):
         print("In save tasks")
-        new_tasku = models.Task_user(tasku_name = self.cleaned_data['ftasku_name'],
+        new_tasku = models.Task_user(tasku_name=self.cleaned_data['ftasku_name'],
+            user_ID = request.user,
             tasku_duedate = self.cleaned_data['ftasku_duedate'],
             tasku_note = self.cleaned_data['ftasku_note'],
             tasku_tag = self.cleaned_data['ftasku_tag'],

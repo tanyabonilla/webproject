@@ -100,14 +100,22 @@
 /* my task page */
 
 #header {
+    padding: 20px 0px 0px 5px;
+    font-size: 30px;
     text-align: center;
 }
 
 #mytasks {
+    padding: 20px 0px 0px 5px;
+}
+#new_task {
     text-align: center;
     margin: 10px;
 }
 
+.card {
+    margin: 20px;
+}
 
   /* timeline css */
 
