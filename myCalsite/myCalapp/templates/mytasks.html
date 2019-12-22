@@ -5,7 +5,7 @@
 {% block content %}
 <p> my Tasks: </p>
 <div id="mytasks">
-    {% if tasksu_list == None %}
+    {% if tasku_list == None %}
     <p>You have no tasks </p>
     {% else %}
     <ol>
@@ -13,7 +13,6 @@
         {% verbatim %}
         {{taskitem.name}} - {{taskitem.tasku_duedate}} - {{taskitem.tasku_note}}
         {% endverbatim %}
-
         </li>
     </ol>
     {% endif %}
