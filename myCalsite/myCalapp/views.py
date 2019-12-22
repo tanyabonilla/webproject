@@ -166,7 +166,7 @@ def new_events_tasks(request):
                     form_instance_tu.save_tasku(request=request)
                     form_instance_tu = forms.Taskuser_Form()#clears the form out if its good
                     print("POST saved task")
-                    return redirect("/new_events_tasks/") 
+                    return redirect("/mytasks/") 
                 else:
                     print("POST not saved task, %s", form_instance_tu.errors)
                     return redirect("/new_events_tasks/") #redirect somewhere else
@@ -175,7 +175,7 @@ def new_events_tasks(request):
                 if form_instance_eu.is_valid():
                     form_instance_eu.save_eventu(request=request)
                     form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
-                    return redirect("/new_events_tasks/") 
+                    return redirect("/") 
                 else:
                     return redirect("/new_events_tasks/") #redirect somewhere else
         else:

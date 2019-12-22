@@ -29,6 +29,8 @@ var mytasks = new Vue({
     el: '#mytasks', //change to events
     data: {
         tasks: [],
+        seen: true,
+        unseen: false
     },
   
     created: function() {

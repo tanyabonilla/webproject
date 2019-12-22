@@ -5,18 +5,21 @@
 {% block content %}
 <p> my Tasks: </p>
 <div id="mytasks">
-    {% if tasksu_list == None %}
-    <p>You have no tasks </p>
-    {% else %}
+    <span v-if="tasks.length == 0">
+    <p>You have no tasks</p>
+    <a class="button" href="/new_events_tasks">Create New Task</a>
+    </span>
+    <span v-else>
     <ol>
-        <li v-for="taskitem in tasku_list">
+        <li v-for="taskitem in tasks">
         {% verbatim %}
-        {{taskitem.name}} - {{taskitem.tasku_duedate}} - {{taskitem.tasku_note}}
+        Task: {{taskitem.t_name}}<br>
+        Due Date: {{taskitem.t_duedate}} <br>
+        Note: {{taskitem.t_note}}<br>
         {% endverbatim %}
-
         </li>
     </ol>
-    {% endif %}
+<!-- s -->
 </div>
 
     <!-- <div class="timeline">
