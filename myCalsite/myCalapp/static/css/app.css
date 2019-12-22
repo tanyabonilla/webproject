@@ -10,9 +10,6 @@
 .top-bar-right a {
     color: #D25757;
 }
-.menu-text {
-    padding: 0.7rem 1rem;
-}
 
 .text-center {
     padding: 20px;
@@ -20,7 +17,6 @@
 
 
 /* for create task and event page */
-
 .center{
     width:750px;
     margin: 40 auto;
@@ -100,6 +96,18 @@
     height: 150px;
     padding: 20px 0px 0px 5px;
   }
+
+/* my task page */
+
+#header {
+    text-align: center;
+}
+
+#mytasks {
+    text-align: center;
+    margin: 10px;
+}
+
 
   /* timeline css */
 

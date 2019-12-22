@@ -78,4 +78,17 @@ var myfriends = new Vue({
     beforeDestroy() {
     clearInterval(this.timer)
     }
-  })
+})
+
+// //dark_mode
+// var dark_mode = new Vue({
+//     el: '#app',
+//     data() {
+//         return {
+//             mode: 'dark'
+//         }
+//     },
+//     components: {
+
+//     }
+// }

@@ -3,11 +3,11 @@
 
 
 {% block content %}
-<p> my Tasks: </p>
+<h1 id="header"> My Tasks </h1>
 <div id="mytasks">
     <span v-if="tasks.length == 0">
-    <p>You have no tasks</p>
-    <a class="button" href="/new_events_tasks">Create New Task</a>
+    <p class="align-center">you have no tasks</p>
+    <a class="button" id="new_task" href="/new_events_tasks">Create New Task</a>
     </span>
     <span v-else>
     <ol>
@@ -17,9 +17,11 @@
         Due Date: {{taskitem.t_duedate}} <br>
         Note: {{taskitem.t_note}}<br>
         {% endverbatim %}
+        <br>
         </li>
     </ol>
-<!-- s -->
+    <a class="button" id="new_task" href="/new_events_tasks">Create New Task</a>
+</span>
 </div>
 
     <!-- <div class="timeline">
