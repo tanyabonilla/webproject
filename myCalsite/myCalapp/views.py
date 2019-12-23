@@ -207,6 +207,16 @@ def new_events_tasks(request):
     }
     return render(request, "new_events_tasks.html", context=context)
 
+def mytask_view(request):
+    # try:
+    #     all_tasks = models.Task_user.objects.filter(user_ID=request.user.id)
+    # except models.Task_user.DoesNotExist:
+    #     all_tasks = None
+    # context = {
+    #     "tasku_list":all_tasks,
+    # }
+    return render(request, "mytasks.html", context=context)
+
 @login_required(login_url='/login/')
 def tasks_view(request):
     if request.method == 'GET':
@@ -217,7 +227,7 @@ def tasks_view(request):
                 currtask_list["tasks"] += [{
                     "user": t_q.user_ID.username,
                     "t_name": t_q.tasku_name,
-                    "t_duedate": t_q.tasku_duedate,
+                    "t_duedate": t_q.tasku_duedate.day,
                     "t_note": t_q.tasku_note,
                     "t_tag": t_q.tasku_tag,
                     }]

@@ -1,4 +1,28 @@
 {% extends "index.html" %}
 {% load static %}
 
+{% block content %}
+
+<p> my Tasks: </p>
+<!-- {% if tasksu_list == None %}
+    <p>You have no tasks </p>
+{% else %} -->
+
+<div id="mytasks">
+    <ol>
+        <li v-for="mytasks in tasks">
+        {% verbatim %}
+        {{ mytasks.t_name}}  {{mytasks.user}}  {{mytasks.t_duedate}}
+        {% endverbatim %}
+        </li>
+    </ol>
+    <!-- {% endif %} -->
+</div>
+
+{% endblock %}
+
+{% block scripts%}
+{{block.super}}
+{% endblock %}
+
 
