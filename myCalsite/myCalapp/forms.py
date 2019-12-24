@@ -12,13 +12,20 @@ from django.shortcuts import get_object_or_404
 YEARSS= [x for x in range(2019,2022)]
 #YEARSE= [x for x in range(2019,2020)]
 TIME_INPUT_FORMATS = ['%I:%M %p',]
+DATE_INPUT_FORMATS =['%m/%d/%Y %h:%M %A', '%m/%d/%Y %H:%M']
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class TimeInput(forms.TimeInput):
+    input_type = 'time'
 
 class Eventuser_Form(forms.Form):
     feventu_name = forms.CharField(label = 'Event Name', max_length = 50, required = True, strip = True)
-    feventu_startday = forms.DateField(label = 'Start Day', required=True, widget = forms.SelectDateWidget(years = YEARSS))
-    feventu_starttime = forms.TimeField(label = 'Start Time (HH:MM AM/PM)', required=True, input_formats = TIME_INPUT_FORMATS)
-    feventu_endday = forms.DateField(label = 'End Day', required=True, widget = forms.SelectDateWidget(years = YEARSS))
-    feventu_endtime = forms.TimeField(label = 'End Time (HH:MM AM/PM)',required=True, input_formats = TIME_INPUT_FORMATS)
+    feventu_startday = forms.DateField(label = 'Start Day', required=True,  widget = DateInput)
+    feventu_starttime = forms.TimeField(label = 'Start Time (HH:MM AM/PM)', required=True, widget = TimeInput)
+    feventu_endday = forms.DateField(label = 'End Day', required=True,  widget = DateInput)
+    feventu_endtime = forms.TimeField(label = 'End Time (HH:MM AM/PM)',required=True, widget = TimeInput)
     feventu_location = forms.CharField(label = 'Location', max_length = 50, required = False, strip = True, empty_value = 'NA')
     feventu_note = forms.CharField(label = 'Notes', max_length = 100, required = False, strip = True, empty_value = 'NA')
     feventu_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA')
@@ -27,7 +34,8 @@ class Eventuser_Form(forms.Form):
     #eventu_endtime = forms.DateTimeField(label = 'End Time',required=True, input_formats = ['%m/%d/%y %H:%M', '%m/%d/%y'])
     
     def save_eventu(self, request, commit=True):
-        new_eventu = models.Event_user(eventu_name = self.cleaned_data['feventu_name'],
+        new_eventu = models.Event_user(eventu_name=self.cleaned_data['feventu_name'],
+            user_ID = request.user,
             eventu_startday = self.cleaned_data['feventu_startday'],
             eventu_starttime = self.cleaned_data['feventu_starttime'],
             eventu_endday = self.cleaned_data['feventu_endday'],
@@ -42,15 +50,16 @@ class Eventuser_Form(forms.Form):
         return new_eventu
     
 class Taskuser_Form(forms.Form):
-    ftasku_name = forms.CharField(label = 'Event Name', max_length = 50, required = True, strip = True)
-    #ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m AM/PM))',required=True, input_formats = ('%m/%d/%Y %I:%M %A') ))
-    ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m))',required=True,widget = forms.DateTimeInput())
+    ftasku_name = forms.CharField(label = 'Task Name', max_length = 50, required = True, strip = True)
+    #ftasku_duedate = forms.DateTimeField(label = 'Due Date and Time(mm/dd/yyyy h:m AM/PM))',required=True, input_formats = ('%m/%d/%Y %I:%M %A') input_formats = DATE_INPUT_FORMATS))
+    ftasku_duedate = forms.DateField(label = 'Due Date and Time(mm/dd/yyyy HH:MM))',required=True, widget = DateInput)
     ftasku_note = forms.CharField(label = 'Notes', max_length = 100, required = False, strip = True, empty_value = 'NA')
     ftasku_tag = forms.CharField(label = 'Tags', max_length = 25, required = False, strip = True, empty_value = 'NA') 
 
     def save_tasku(self, request, commit=True):
         print("In save tasks")
-        new_tasku = models.Task_user(tasku_name = self.cleaned_data['ftasku_name'],
+        new_tasku = models.Task_user(tasku_name=self.cleaned_data['ftasku_name'],
+            user_ID = request.user,
             tasku_duedate = self.cleaned_data['ftasku_duedate'],
             tasku_note = self.cleaned_data['ftasku_note'],
             tasku_tag = self.cleaned_data['ftasku_tag'],
@@ -58,6 +67,7 @@ class Taskuser_Form(forms.Form):
         if commit:
             new_tasku.save() #goes into the database
         return new_tasku
+
 
 class Add_FriendForm(forms.Form):
     add_friend = forms.CharField(label = 'Name of the account you want to Befriend',  required = True, strip = True)
@@ -125,14 +135,19 @@ class RegistrationForm(UserCreationForm):
     #     profile = models.User_Profile(user=user.pk)
     #     profile.save()
 
-# class ChatForm(forms.Form):
-#     chat = forms.CharField(label='Chatroom Name', max_length=25) 
+class ChatForm(forms.Form):
+    room_name = forms.CharField(label='Chatroom Name', max_length=30) 
 
-#     def save(self, request, commit=True):
-#         chat_instance = models.chatroom(
-#             name = self.cleaned_data["chat"])
-
-#         if commit:
-#             chat_instance.save()
-#         return chat_instance
+    def chat_save(self, request, commit=True):
+        clean_name = self.cleaned_data["room_name"]
+        new_chat = models.Chatroom(
+            name = clean_name)
+        
+        if commit:
+            if models.Chatroom.objects.filter(name = clean_name).exists():
+                old_chat = models.Chatroom.objects.get(name=clean_name)
+                return old_chat
+            else:
+                new_chat.save()
+        return new_chat
 

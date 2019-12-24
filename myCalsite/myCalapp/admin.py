@@ -11,5 +11,5 @@ admin.site.register(models.Event_user)
 
 admin.site.register(models.Task_user)
 admin.site.register(models.User_Profile)
-#admin.site.register(models.FriendshipManager)
+admin.site.register(models.Chatroom)
 admin.site.register(models.Friendship)

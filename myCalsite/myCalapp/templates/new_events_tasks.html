@@ -17,22 +17,16 @@ Add New Events + Tasks
                 <h4 class="text-center">Event</h4>
                 {% csrf_token %}
                 {{form_eventu}}
-                {% if form_eventu.errors %}
-                    {% for field in form_eventu %}
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form_eventu.non_field_errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
                 <input type="submit" class="button" value="Submit Event" name=submit_eventu>
             </form>
+            <br>
+            </p>
+            {% if messages %}
+                {% for message in messages %}
+                    Error:{{message}}
+                {% endfor %}
+            {% endif %}
+            </p>
         </div>
     </div>
         
@@ -42,31 +36,28 @@ Add New Events + Tasks
                 <h4 class="text-center">Task</h4>
                 {% csrf_token %}
                 {{form_tasku}}
-                {% if form_tasku.errors %}
-                    {% for field in form_tasku %}
-                        {% for error in field.errors %}
-                            <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
-                            </div>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form_tasku.non_field_errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ error|escape }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
                 <input type="submit" class="button" value="Submit Task" name=submit_tasku>
             </form>
+            <br>
+            </p>
+            {% if messages %}
+                {% for message in messages %}
+                    Error:{{message}}
+                {% endfor %}
+            {% endif %}
+            </p>
+            </div>
         </div>
     </div>
 </div>
 
-
-<div id="go_back">
-<a class="button expanded" href="/">Calendar</a>
-</div>
 {% endif %} <!-- if is_authenticated -->
+{% endblock %}
+
+{% block back %}
+<div id="go_back">
+    <a class="button expanded" href="/">Back to Calendar</a>
+</div>
 {% endblock %}
 
 {% block scripts %}

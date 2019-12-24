@@ -10,16 +10,12 @@
 .top-bar-right a {
     color: #D25757;
 }
-.menu-text {
-    padding: 0.7rem 1rem;
-}
 
 .text-center {
     padding: 20px;
 }
 
 /* for create task and event page */
-
 .center{
     width:750px;
     margin: 40 auto;
@@ -56,8 +52,13 @@
 
 /* go back to calendar*/
 #go_back {
-    position:relative;
-    margin-top: 90%;
+  position: relative;
+  margin-top: 100%;
+
+
+    /* bottom:0;
+    right: 32%;
+    width: 350px; */
 }
 /* Calendar css */
 .left {
@@ -100,64 +101,22 @@
     padding: 20px 0px 0px 5px;
   }
 
-  /* timeline css */
+/* my task page */
 
-  /* .timeline .timeline-item .timeline-content {
-  padding: 20px;
-  text-align: right;
-  transition: all 0.25s ease-in;
-  width: 45%;
-  background: transparent;
+#header {
+    padding: 20px 0px 0px 5px;
+    font-size: 30px;
+    text-align: center;
 }
 
-.timeline .timeline-item .timeline-content p {
-  color: black;
+#mytasks {
+    padding: 20px 0px 0px 5px;
+}
+#new_task {
+    text-align: center;
+    margin: 10px;
 }
 
-.timeline .timeline-item .timeline-content p {
-  font-size: 16px;
-  line-height: 1.4;
-  margin-bottom: 0;
+.card {
+    margin: 20px;
 }
-
-.timeline .timeline-item .timeline-content .timeline-content-date {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 0;
-}
-
-.timeline .timeline-item .timeline-content .timeline-content-month {
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  font-weight: 400;
-}
-
-.timeline .timeline-item .timeline-content.right {
-  float: right;
-  text-align: left;
-}
-
-@media screen and (max-width: 39.9375em) {
-  div.timeline {
-    margin: 30px;
-    padding: 0;
-    width: 90%;
-  }
-  div.timeline::before {
-    left: 0;
-  }
-  div.timeline div.timeline-item div.timeline-content {
-    float: right;
-    text-align: left;
-    width: 90%;
-  }
-  div.timeline div.timeline-item div.timeline-content::before, div.timeline .timeline-item div.timeline-content.right::before {
-    border-left: 0;
-    border-right: 7px solid black;
-    left: 10%;
-    margin-left: -6px;
-  }
-  div.timeline div.timeline-item div.timeline-icon {
-    left: 0;
-  }
-} */

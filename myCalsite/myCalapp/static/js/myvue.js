@@ -29,6 +29,8 @@ var mytasks = new Vue({
     el: '#mytasks', //change to events
     data: {
         tasks: [],
+        seen: true,
+        unseen: false
     },
   
     created: function() {
@@ -56,6 +58,8 @@ var myfriends = new Vue({
     el: '#myfriends', //change to events
     data: {
         friends: [],
+        seen: true,
+        unseen: false
     },
   
     created: function() {
@@ -76,4 +80,45 @@ var myfriends = new Vue({
     beforeDestroy() {
     clearInterval(this.timer)
     }
-  })
+})
+
+var mychats = new Vue({
+    el: '#mychats', //change to events
+    data: {
+        chatrooms: [],
+        seen: true,
+        unseen: false
+    },
+  
+    created: function() {
+        this.fetchChatroomList();
+        this.timer = setInterval(this.fetchChatroomList, 10000);
+    },
+    methods: {
+        fetchChatroomList: function() {
+        axios
+        .get('chatrooms/')
+        .then(response => (this.chatrooms = response.data.chatrooms))
+        console.log(this.chatrooms)
+        this.seen=false
+        this.unseen=true
+    },
+    cancelAutoUpdate: function() { clearInterval(this.timer) }
+    },
+    beforeDestroy() {
+    clearInterval(this.timer)
+    }
+})
+
+// //dark_mode
+// var dark_mode = new Vue({
+//     el: '#app',
+//     data() {
+//         return {
+//             mode: 'dark'
+//         }
+//     },
+//     components: {
+
+//     }
+// }
