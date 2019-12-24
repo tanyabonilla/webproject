@@ -48,6 +48,9 @@
   {% block submit %}
   {% endblock %}
 
+  {% block back %}
+  {% endblock %}
+
   <!--inherits code-->
   {% block scripts %}
   <script src="{% static "js/vendor/jquery.js" %}"></script>
@@ -56,7 +59,7 @@
   <script src="{% static "js/app.js" %}"></script>
 
   <script src="{%static "js/vendor/foundation.topbar.js" %}"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <!-- development version, includes helpful console warnings --->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="{% static "js/myvue.js" %}"></script>

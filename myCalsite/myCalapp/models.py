@@ -93,12 +93,12 @@ class Event_user(models.Model):
 class Task_user(models.Model):
     user_ID = models.ForeignKey(User, on_delete = models.CASCADE, default = '1')
     tasku_name = models.CharField(max_length = 50, null = False)
-    tasku_duedate = models.DateTimeField(default=now, null = False)
+    tasku_duedate = models.DateField(default=now, null = False)
     tasku_note = models.CharField(max_length=100, null = True, )
     tasku_tag = models.CharField(max_length=25, null = True)
     def __str__(self):
         statement = self.tasku_name
-        statement += "~~ Due Day and Time: " + str(self.tasku_duedate.month) + " / " + str(self.tasku_duedate.day) + " "+ str(self.tasku_duedate.hour) + ":"  + str(self.tasku_duedate.minute)
+        statement += "~~ Due Date: " + str(self.tasku_duedate.month) + " / " + str(self.tasku_duedate.day) 
         if (self.tasku_note != 'NA'):
             statement += " ~~ Notes: " + self.tasku_note
         if (self. tasku_tag != 'NA'):
@@ -106,7 +106,7 @@ class Task_user(models.Model):
         return statement
 
 class Chatroom(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique = True)
     
     def __str__(self):
         return self.name

@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages 
 #friends
 from django.views.generic.base import RedirectView
 from django.db import transaction
@@ -140,8 +141,20 @@ def add_remove_friend(request):
 
 @login_required(login_url = '/login/')
 def chatindex(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form_chat = forms.ChatForm(request.POST)
+            if form_chat.is_valid():
+                new_chatroom = form_chat.chat_save(request=request)
+                return redirect('/chat/' + new_chatroom.name + '/')
+        else:
+            form_chat = forms.ChatForm()
+    else:
+        form_chat = forms.ChatForm()
+
     context = {
         "current_user":request.user,
+        "chatform": form_chat,
     }
     return render(request, 'chat/chatindex.html', context=context)
 
@@ -157,7 +170,6 @@ def room(request, room_name):
 # @csrf_exempt
 def new_events_tasks(request):
     if request.method == "POST":
-        
         if request.user.is_authenticated:
             if 'submit_tasku' in request.POST:
                 print("POST tasks")
@@ -168,7 +180,10 @@ def new_events_tasks(request):
                     print("POST saved task")
                     return redirect("/mytasks/") 
                 else:
-                    print("POST not saved task, %s", form_instance_tu.errors)
+                    print(form_instance_tu.errors)
+                    messages.error(request, form_instance_tu.errors)
+                    print("POST NOT valid")
+                    
                     return redirect("/new_events_tasks/") #redirect somewhere else
             if 'submit_eventu' in request.POST:
                 form_instance_eu = forms.Eventuser_Form(request.POST)
@@ -177,7 +192,8 @@ def new_events_tasks(request):
                     form_instance_eu = forms.Eventuser_Form()#clears the form out if its good
                     return redirect("/") 
                 else:
-                    return redirect("/new_events_tasks/") #redirect somewhere else
+                    messages.error(request, form_instance_eu.errors)
+                    #return redirect("/new_events_tasks/") #redirect somewhere else
         else:
             form_instance_eu = forms.Eventuser_Form()
             form_instance_tu = forms.Taskuser_Form()
@@ -282,6 +298,18 @@ def friends_view(request):
         return JsonResponse(currfriend_list) 
     else: HttpResponse("Unsupported HTTP Method")
 
+@login_required(login_url='/login/')
+def chatrooms_view(request):
+    if request.method == "GET":
+        chatroom_query = models.Chatroom.objects.all()
+        chatroom_list = {"chatrooms":[]}
+        for cr_q in chatroom_query:
+            chatroom_list["chatrooms"] += [{
+                "name":cr_q.name
+            }]
+        return JsonResponse(chatroom_list)
+    return HttpResponse("Unsupported HTTP method")
+
 class CalendarView(generic.ListView):
     model = models.Event_user
     template_name = 'calendar.html'
@@ -315,13 +343,3 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
-# def chatrooms_view(request):
-#     if request.method == "GET":
-#         chatroom_query = models.chatroom.objects.all()
-#         chatroom_list = {"chatrooms":[]}
-#         for cr_q in room_query:
-#             chatroom_list["chatrooms"] += [{
-#                 "name":cr.name
-#             }]
-#         return JsonResponse(chatroom_list)
-#     return HttpResponse("Unsupported HTTP method")

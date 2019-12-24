@@ -58,6 +58,8 @@ var myfriends = new Vue({
     el: '#myfriends', //change to events
     data: {
         friends: [],
+        seen: true,
+        unseen: false
     },
   
     created: function() {
@@ -70,6 +72,34 @@ var myfriends = new Vue({
         .get('friends/')
         .then(response => (this.friends = response.data.friends))
         console.log(this.friends)
+        this.seen=false
+        this.unseen=true
+    },
+    cancelAutoUpdate: function() { clearInterval(this.timer) }
+    },
+    beforeDestroy() {
+    clearInterval(this.timer)
+    }
+})
+
+var mychats = new Vue({
+    el: '#mychats', //change to events
+    data: {
+        chatrooms: [],
+        seen: true,
+        unseen: false
+    },
+  
+    created: function() {
+        this.fetchChatroomList();
+        this.timer = setInterval(this.fetchChatroomList, 10000);
+    },
+    methods: {
+        fetchChatroomList: function() {
+        axios
+        .get('chatrooms/')
+        .then(response => (this.chatrooms = response.data.chatrooms))
+        console.log(this.chatrooms)
         this.seen=false
         this.unseen=true
     },
